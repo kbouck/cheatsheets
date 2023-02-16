@@ -1,11 +1,21 @@
 
 
-https://www.plixer.com/blog/overview-of-dns-protocol-part-1-of-3/
+# dig
+
+```bash
+
+dig +short ...                                  # terse responses
+dig +short CNAME www.covidtests.gov             # CNAME query
+dig +short covidtests.gov                       # A record query
+dig +short -x <ip-address>                      # reverse lookup (ip-to-name)
+
+dig @192.168.1.1 ...                            # use a specific name server
+```
 
 
 
 
-# DNS Record Types
+# Record Types
 
 Reference:
 
@@ -27,9 +37,7 @@ TXT
 HTTPS 
 ```
 
-# pseudo TLD 
-
-(.local, .lan, .home, .localdomain)
+# Pseudo TLDs 
 
 ```bash
 .local        # mDNS, Apple
@@ -39,6 +47,9 @@ HTTPS
 .fritz.box    # Probably not good as ICANN delegated .box in 2016
 ```
 
+
+# Protocol
+- https://www.plixer.com/blog/overview-of-dns-protocol-part-1-of-3/
 
 
 # DNS-over-TLS
