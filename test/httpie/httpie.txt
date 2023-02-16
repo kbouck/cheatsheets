@@ -1,0 +1,126 @@
+
+
+# url
+
+```bash
+http ...
+https ...
+
+```
+
+# querystring params
+
+```bash
+http ... q==httpie per_page==1
+
+```
+
+# headers
+
+```bash
+http ... X-Date:today
+
+```
+
+# data fields
+
+```bash
+http ... field=value              # json encoded (default)
+http ... --form field=value       # form-encoded
+http ... --multipart              # serialized as multipart/form-data
+http ... field:=<json-value>      # raw json value
+field@/dir/file                   # file upload field (--form, --multipart)
+field@file;type=<mime>            # ", and use specified mime type
+```
+
+# file content
+
+```bash
+http ... X-Data:@files/text.txt   # header value from file
+http ... token==@files/text.txt   # query param value from file
+name=@files/text.txt              # data field value from file    
+bookmarks:=@files/data.json       # raw json value from file
+```
+
+# json
+
+flat:
+
+```bash
+http PUT pie.dev/put \
+    name=John \                        # String (default)
+    age:=29 \                          # Raw JSON — Number
+    married:=false \                   # Raw JSON — Boolean
+    hobbies:='["http", "pies"]' \      # Raw JSON — Array
+    favorite:='{"tool": "HTTPie"}' \   # Raw JSON — Object
+    bookmarks:=@files/data.json \      # Embed JSON file
+    description=@files/text.txt        # Embed text file
+
+```
+
+
+nested:
+```bash
+http pie.dev/post \
+  platform[name]=HTTPie \
+  platform[about][mission]='Make APIs simple and intuitive' \
+  platform[about][homepage]=httpie.io \
+  platform[about][homepage]=httpie.io \
+  platform[about][stars]:=54000 \
+  platform[apps][]=Terminal \
+  platform[apps][]=Desktop \
+  platform[apps][]=Web \
+  platform[apps][]=Mobile
+```
+
+
+# body
+
+```bash
+http ... < files/data.json            # redirect from file
+cat files/data.json | http ...        # pipe command output 
+
+echo -n '{"name": "John"}' | http ... # simple inline json w/ echo
+http ... <<< '{"name": "John"}'       # bash here-string 
+
+http ... | http ...                   # pipe http response output to http request input
+
+# multiline input data
+cat | http POST pie.dev/post
+<paste>
+^D
+
+
+http ... @files/data.xml              # request data from file
+
+http --raw 'Hello, world'             # inline request body
+
+```
+
+
+
+
+# proxies
+
+```bash
+# use these environment vars 
+HTTP_PROXY
+HTTPS_PROXY
+ALL_PROXY
+```
+
+# ssl
+
+```bash
+
+```
+
+
+# sessions
+
+Session files store all session data, including credentials, prompted passwords, cookie data, and custom headers are stored in plain text
+
+```bash
+http --session=./session.json
+
+```

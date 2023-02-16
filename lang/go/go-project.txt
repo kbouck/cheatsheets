@@ -1,0 +1,18 @@
+```
+$ tree go-grab-xkcd
+go-grab-xkcd
+├── client
+│   └── xkcd.go
+└── model
+    └── comic.go
+├── main.go
+└── go.mod
+```
+
+Initialize the project
+Create a go.mod file-
+
+```bash
+$ go mod init
+```
+This will help in package management (think package.json in JS).
