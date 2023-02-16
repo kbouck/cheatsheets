@@ -1,112 +1,83 @@
 
 
-
-
-
-
 ```bash
+# config
+# ~/.gitconfig
+git config --global user.name "<name>"
+git config --global user.email "<email>"
 
-# Change last commit message
-git commit --amend
+# init
+git init                           # init repo
+git init <dir>                     # init repo
 
-# Undo a commit and reuse the log message and the authorship information in the
-# next commit
-git commit
-git reset HEAD~
-git add ...
-git commit -c ORIG_HEAD
-
-# Change URL(s) for the origin remote
-git remote set-url origin <new_url>
-svn relocate <new_url>
-# version < 1.7
-svn switch --relocate <old_url> <new_url>
-
-# Get hash of the last commit
-git rev-parse HEAD
-
-# Delete a branch both locally and remotely
-git push -d origin <branch_name>
-git branch -d <branch_name>
-
-# Partial revert
-git revert <SHA> --no-commit
-git restore --staged --worktree ...  # exclude changes you do NOT want to restore
-git commit
-
-# Completely replace one branch's code and history with another
-git checkout target
-git checkout -m old-target
-git checkout source
-git branch -m target
-
-git push origin target -f
-
-git branch -m source
-git checkout old-target
-git branch -m target
-
-git fetch --all
-git reset --hard origin/target
-
-# Checkout a branch on non-default remote
-git fetch <remote>
-git checkout -b <branch_name> --track <remote>/<branch_name>
-
-```
-
-
+# clone
+git clone <url>                    # 
 
 # status
+git status                         # 
 
-```bash
-git status          # see changes to be committed
-```
-
-# add
-
-```bash
-git add <path>      # add a file
-git add --all       # add all new files
-```
+# log
+git log --oneline                  #
+git log --graph                    #
 
 # diff
+git diff                           # diff of local changes to all files versus last commit
+git diff <path>                    # diff of local changes to <path> versus last commit
+git diff <commit1> <commit2>       # diff between two commits
 
-```bash
-git diff             # diff of local changes to all files versus last commit
-git diff <path>      # diff of local changes to <path> versus last commit
-```
-
-# checkout
-
-```bash
-git checkout target
-git checkout -m old-target
-git checkout source
-```
+# add / rm
+git add <file>                     #
+git add .                          # 
+git rm <file>                      # remove file 
+git rm --cached <file>             # remove file (from staging area only)
 
 # commit
-
-```bash
-git commit                         # commit, open editor for commit message
-git commit -m '<commit_message>'   # commit with message
+git commit                         # commit staged changes, open editor for commit message
+git commit -m '<message>'          # commit staged changes with message
 git commit --amend                 # change last commit message
 git commit -c ORIG_HEAD
+git commit -a                      # add tracked file changes and commit
+
+# tag
+git tag <tag>                      # add tag to current commit
+
+# push / pull / fetch
+git push                           #
+git push -d origin <branch>        #
+git push origin <target> -f        #
+git pull                           #
+git pull --rebase <alias>          #
+git fetch <remote>                 #
+git fetch --all                    #
+
+
+# branch / checkout / switch
+git branch                         # list all branches, with current highlighted
+git branch <branch>                # create new branch
+git checkout <branch>              # checkout branch (existing)
+git checkout -b <branch>           # checkout branch (create new)
+git switch <existing-branch>       #
+git switch -c <new-branch>         #
+git checkout -t <remote>/<branch>  # checkout remote branch, track remote branch
+git branch -d <branch>             # delete branch
+
+
+# reset / revert / restore
+git reset --hard                   # revert local changes
+git reset --hard <commit>          # 
+git reset --hard origin/target     #
+git revert <SHA> --no-commit
+git restore --staged --worktree ...  # exclude changes you do NOT want to restore
+
+
 ```
 
-# push
+# branch names
 
 ```bash
-git push
-git push origin main                # push local commits to remote repo branch
-git push origin target -f
+main                 # typical development branch
+HEAD                 # current branch
+HEAD^                # parent of current branch
+HEAD~4               # 4x ancestor of current branch
 ```
-
-# fetch
-
-```bash
-git fetch --all
-```
-
-
 
