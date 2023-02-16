@@ -73,22 +73,14 @@ reshape -s <input-key-field,input-value-field>
 # rename
 
 ```bash
-rename "<old>,<new>'
-rename -r "<old>,<new>'       # regex
-rename -g "<old>,<new>'       # match all
-rename -r "\-,_"              # change -'s to _'s
+rename "<old>,<new>"            # exact-match replace field name
+rename -r "<old-regex>,<new>"   # regex replace field name, first-match only
+rename -g "<old-regex>,<new>"   # regex replace field name(s), global match 
+rename -r "\-,_"                # replace - with _ in field names
 
-
--r         Treat old field  names as regular expressions. "ab", "a.*b"
-           will match any field name containing the substring "ab" or
-           matching "a.*b", respectively; anchors of the form "^ab$",
-           "^a.*b$" may be used. New field names may be plain strings,
-           or may contain capture groups of the form "\1" through
-           "\9". Wrapping the regex in double quotes is optional, but
-           is required if you wish to follow it with 'i' to indicate
-           case-insensitivity.
--g         Do global replacement within each field name rather than
-           first-match replacement.
+TODO:
+- add examples using capture group in new name
+- example using case-insentive regex
 ```
 
 # bar
