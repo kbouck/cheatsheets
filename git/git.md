@@ -19,6 +19,7 @@ git status                         #
 # log
 git log --oneline                  #
 git log --graph                    #
+git log --pretty=format:"%an" -n 10000 | sort | uniq -c | sort -nr    # Count commits per author
 
 # diff
 git diff                           # diff of local changes to all files versus last commit
