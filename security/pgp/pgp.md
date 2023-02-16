@@ -16,8 +16,9 @@ gpg --import public.pgp
 # encrypt, decrypt
 
 ```bash
-# decrypt
-gpg --output doc --decrypt doc.gpg
+gpg --output doc --decrypt encrypted_doc.gpg            # decrypt
+
+
 ```
 
 
