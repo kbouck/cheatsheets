@@ -35,12 +35,10 @@ tail -n 2                    # keep only last 2 rows
 - for excluding (or preserving only) specific columns
 
 ```bash
-cut -f col1,col2             # keep fields col1,col2, original order
+cut -f col1,col2             # keep fields col1,col2, keep original order
 cut -f col1,col2 -o          # keep fields col1,col2, use specifed order
 cut -f col1,col2 -x          # remove fields col1,col2
-
-template -f col1,col2        # output only these cols, in order, adding if missing 
-
+template -f col1,col2        # output only fields col1,col2, in order and add if missing 
 ```
 
 # sort
