@@ -11,7 +11,7 @@ mlr <options> <verb+options> <input-file>
 # skip-trivial-records 
 TODO
 
---skip-comments        # skip comments prefixed with #
+--skip-comments              # skip comments prefixed with #
 --ragged
 --allow-ragged-csv-input
 ```
@@ -19,8 +19,8 @@ TODO
 # cat / tac 
 
 ```bash
-cat                  # output 
-tac                  # output reverse
+cat                          # output 
+tac                          # output reverse
 ```
 
 # head / tail
