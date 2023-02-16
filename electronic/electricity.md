@@ -1,7 +1,4 @@
 
-
-# definitions
-
 ```bash
 # voltage
 - electric potential
@@ -65,12 +62,8 @@
   - Q = It       # (charge = current * time)
   - Q = W/V      # (charge = energy / voltage)
   
-```
-
 
 # mains
-
-```
 (copied from somewhere on the internet. lost track of the reference link)
 
 circuit breakers:
@@ -84,7 +77,5 @@ so:
 - limit loads to 3000W (13A) per wall socket
  
 ```
-
-
 
 
