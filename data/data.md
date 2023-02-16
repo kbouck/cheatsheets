@@ -1,6 +1,6 @@
 
 
-Commands to perform common tasks on various data formats. Only listed here if command can be expressed as a simple one-liner.
+This cheatsheet groups common actions across various data tools. Commands are only included here if they can be expressed as relatively simple one-liners.
 
 # view
 
@@ -52,7 +52,7 @@ vd -f xlsx                     # visidata (interacative)
 # filter
 
 ```bash
-# filter out empty lines / comments
+# filter out empty lines and/or comments
 sed '/^$/d'                # remove empty lines
 grep -Ev '^\s*$'           # remove empty lines
 sed 's/\#.*$//g'           # remove comments
@@ -86,12 +86,10 @@ todo - jq '... todo ... '
 
 ```bash
 # csv to json
-# ===========
 mlr --c2j               # miller 
 
 
 # json to csv
-# ===========
 mlr --j2c               # miller
 jq '... | @csv'         # jq
 in2csv file.json        # csvkit (infer input type from filename) 
@@ -100,17 +98,14 @@ in2csv --format ndjson  #
 
 
 # json to yaml
-# ============
 yq -P                   # yq (-P pretty-prints in yaml)
 
 
 # yaml to json
-# ============
 yq -o=json              # yq
 
 
 # excel to csv
-# ============
 in2csv file.xls         # csvkit (infers input type from filename extension)
 in2csv file.xlsx        # csvkit (infers input type from filename extension)
 in2csv --format xls     # csvkit (force input type)
