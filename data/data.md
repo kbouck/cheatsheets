@@ -42,7 +42,7 @@ https://github.com/alexhallam/tv/blob/main/img/sigs.png
 
 # excel
 vd -f xls                      # visidata (interactive)
-vd -f xlsx                     # visidata (interacative)
+vd -f xlsx                     # visidata (interactive)
 
 
 # xml
