@@ -1,15 +1,10 @@
 
 
-# repo history
-
 ```bash
 git log -n <n>    # limit output to <n> number of commits
-```
+git log --pretty=format:"%an" -n 10000 | sort | uniq -c | sort -nr    # Count commits per author
 
-
-
-```bash
-$ git log
+git log
 commit ca82a6dff817ec66f44342007202690a93763949
 Author: Scott Chacon <schacon@gee-mail.com>
 Date:   Mon Mar 17 21:52:11 2008 -0700
@@ -44,7 +39,6 @@ a11bef0 - Scott Chacon, 6 years ago : Initial commit
 ```
 
 
-
 format
 
 ```bash
@@ -67,39 +61,4 @@ format
 
 
 
-
-```bash
-$ git log --pretty=format:"%an" -n 10000 | sort | uniq -c | sort -nr
-2832 Kevin Bouck
-1353 Randy Aldrich I. Paulo
- 745 Paulo, R.A. (Randy)
- 416 Joydeep Das
- 179 Pieter Biesemans
- 131 Randy Aldrich Paulo
-  76 Anshika Jain
-  75 Vinaya Devara
-  60 Chintamani Pawar
-  42 Atit Kumawat
-  31 anshika.jain
-  29 Skip Ortmans
-  25 Mohanty, A. (Aurosish)
-  18 Ramachandra Hebbar
-  18 Hebbar, R. (Ramachandra)
-  17 Vicky Anand
-  17 Ratliff, T.P. (Thomas)
-  11 Siraj Ansari
-   8 Venkatesh Giriappa
-   7 Aurosish Mohanty
-   6 Avinash Patil
-   5 Raghu Krishnanna
-   3 Ruloff Kristinsson
-   2 Senthilkumar Sivakumar
-   2 Robin Neven
-   1 ashutosh
-   1 Sujit Singh
-   1 Kumari, R. (Rekha)
-   1 Jan Wolter IJssel de Schepper
-   1 Dhiti Yadav
-   1 Anjali Waghmare
-```
 
