@@ -275,10 +275,14 @@ $ mlr help format-conversion-keystroke-saver-flags
 | PPRINT | --p2c | --p2t | --p2j  | --p2l  | --p2d  | --p2n  | --p2x  |        | --p2m    |
 
 
+
 ## csv
+https://miller.readthedocs.io/en/latest/file-formats/#csvtsvasvusvetc
+
 mlr -c                       # csv to csv
 mlr --csv                    # csv to csv
 mlr --icsv --opprint         # csv to fixed
+mlr --icsv --oasv            # csv to asv
 mlr --c2p                    # csv to fixed
 mlr --icsv                   # csv to ...
 mlr -i csv                   # csv to ...
@@ -293,10 +297,13 @@ mlr --p2c                    # fixed to csv
 mlr --ijson --ocsv           # json to csv
 mlr --j2c                    # json to csv
 mlr --l2c                    # json-lines to csv
+mlr --iasv --ocsv            # asv to csv
 mlr --headerless-csv-output  # csv output without headers
 mlr --implicit-csv-header label name,age,status  # provide headers
 mlr -N                       # alias for: --implicit-csv-header --headerless-csv-output`
 mlr unsparsify               # ensure every record has same keys
+
+
 
 ## json / ndjson / json-lines
 mlr -j                  # json to json
@@ -410,7 +417,7 @@ strptime(substr($startDate,0,21)."00", "%Y-%m-%dT%H:%M:%S%z")     # convert time
 
 ```
 
-user-defined
+user-defined functions
 
 ```bash
 # corrrect any reasonable date string to comply w/ iso8601 format
@@ -439,7 +446,7 @@ alias mlr='mlr --load ~/dev/miller/global-functions.mlr'
 
 
 
-# ideas
+# loops
 
 ```bash
 # loop over map elements
@@ -460,11 +467,10 @@ for ((k1, k2), value in $*) ...
 
 ```
 
+# lookup table
 
-
-```bash
-  
-# Add entries in first file to a map
+```
+# Add entries in first (lookup) file to a map
 if (FILENUM == 1) {
   # add record to map, keyed by field X
   print "file 1"
@@ -479,24 +485,4 @@ end {
 }
 ```
 
-
-
-
-
-
-
-```bash
-
-if you have csv (or tsv) and want ascii (or unicode) separated (or vice versa), 'miller' [0] is a command line tool that supports converting among these formats with these one-liners: 
-
-    mlr --icsv --oasv cat input.csv  # csv to asv
-    mlr --iasv --ocsv cat input.asv  # asv to csv
-
-[0] https://miller.readthedocs.io/en/latest/
-[1] https://miller.readthedocs.io/en/latest/file-formats/#csvtsvasvusvetc
-
-
-
-
-```
 
