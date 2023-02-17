@@ -82,3 +82,23 @@ HEAD^                # parent of current branch
 HEAD~4               # 4x ancestor of current branch
 ```
 
+
+
+# .gitignore
+
+```bash
+# add to repo .gitignore file:
+**/.DS_Store
+
+# remove any existing .DS_Store from repo
+find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+
+# add to global .gitignore
+echo ".DS_Store" >> ~/.gitignore_global
+echo "._.DS_Store" >> ~/.gitignore_global
+echo "**/.DS_Store" >> ~/.gitignore_global
+echo "**/._.DS_Store" >> ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+
+```
+
