@@ -36,7 +36,6 @@ raspistill --nopreview -o image.jpg
 -tl, --timelapse <duration>        # take picture every <duration> ms
 -p,  --preview   <x,y,w,h>         # preview
 
-
 raspistill -o image.jpg -t 0       # instant snapshot, no delay
 
 # image
@@ -50,9 +49,6 @@ raspistill -o image.jpg -t 0       # instant snapshot, no delay
 -f, --fullscreen                   # fullscreen preview - todo - try this!
 -op, --opacity                     # preview opacity
 -n, --nopreview                    # no preview
-
-
-
 ```
 
 ## arducam
@@ -61,20 +57,30 @@ raspistill -o image.jpg -t 0       # instant snapshot, no delay
 
 
 
-pi-meter
+## camera service
 
-```bash
-raspistill -o /tmp/image.jpg --nopreview --roi 0.50,0.35,0.20,0.20 --ISO 100 --ev 10 --sharpness 100
-
-./textcleaner -c 600,870,800,880 -e stretch -g -f 25 -o 3 -s 10 image.jpg image_clean.jpg
-
-
-r21 g40 b87
-48, 69, 113
+create
 
 ```
+$ sudo systemctl edit --force --full raspistill.service
+```
 
+content:
 
+```
+[Unit]
+Description=Raspistill service
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=~
+ExecStart=/usr/bin/raspistill -p 0,0,2000,1200 -t 0
+
+[Install]
+WantedBy=multi-user.target
+```
 
 
 
@@ -110,5 +116,3 @@ sudo avconv -i image%04d.jpg -crf 4 -b:v 10M output_video.webm
 ```
 
 
-
-# 

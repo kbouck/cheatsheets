@@ -93,11 +93,12 @@ HEAD~4               # 4x ancestor of current branch
 # remove any existing .DS_Store from repo
 find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
 
-# add to global .gitignore
-echo ".DS_Store" >> ~/.gitignore_global
-echo "._.DS_Store" >> ~/.gitignore_global
-echo "**/.DS_Store" >> ~/.gitignore_global
-echo "**/._.DS_Store" >> ~/.gitignore_global
+# global .gitignore
+# add to ~/.gitignore_global
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
 git config --global core.excludesfile ~/.gitignore_global
 
 ```
