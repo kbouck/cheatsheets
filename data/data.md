@@ -1,6 +1,4 @@
-
-
-This cheatsheet groups common actions across various data tools. Commands are only included here if they can be expressed as relatively simple one-liners.
+A comparison of common tasks across various data tools. This page should exclude commands that are too verbose or not expressible as one-liners.
 
 # view
 
