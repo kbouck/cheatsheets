@@ -29,7 +29,7 @@ groupby 1 sum 2    # group by column 1 and sum by column 2
 
 
 
-[this is the link text](../shell/awk.md)
+[this is the link text](../data.md)
 
 
 
