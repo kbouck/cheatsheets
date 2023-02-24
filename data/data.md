@@ -253,7 +253,7 @@ https://www.sqlite.org/csv.html
 
 # aggregate
 
-min, max, sum, mean, ...
+## min, max, sum, mean, median
 
 ```bash
 # datamash
@@ -333,7 +333,7 @@ d3.rollup(array, v => d3.sum(v, d => d.earnings), d => d.sport)
 
 
 
-sliding window aggregation
+## sliding window
 
 ```bash
 # miller
@@ -403,7 +403,7 @@ someArray.map((element, i, array) => {
 
 # chart
 
-bar
+## bar
 
 ```bash
 # miller
@@ -435,7 +435,7 @@ select *,printf('%.' || cast(10*(room_temp-20.0)/(30-20) as int) ||'c', '█') a
 select *,format('%.' || <calculation> || 'c', '█') as bars
 ```
 
-heatmap
+## heatmap
 
 ```bash
 
