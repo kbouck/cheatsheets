@@ -1,4 +1,6 @@
-A comparison of common tasks across various data tools. This page should exclude commands that are too verbose or not expressible as one-liners.
+A comparison of common tasks across various data tools. 
+
+This page should exclude commands that are too verbose or not expressible as one-liners.
 
 # view
 
@@ -84,31 +86,27 @@ todo - jq '... todo ... '
 
 ```bash
 # csv to json
-mlr --c2j               # miller 
-
+<csv-data> | mlr --c2j                  # miller 
 
 # json to csv
-mlr --j2c               # miller
-jq '... | @csv'         # jq
-in2csv file.json        # csvkit (infer input type from filename) 
-in2csv --format json    # csvkit (force input type)
-in2csv --format ndjson  #
-
+<json-data> | mlr --j2c catbb           # miller
+<json-data> | jq '... | @csv'           # jq
+in2csv file.json                        # csvkit (infer input type from filename) 
+<json-data> | in2csv --format json      # csvkit (force input type)
+<json-data> | in2csv --format ndjson    #
 
 # json to yaml
-yq -P                   # yq (-P pretty-prints in yaml)
-
+<json-data> | yq -P                     # yq (-P pretty-prints in yaml)
 
 # yaml to json
-yq -o=json              # yq
-
+<yaml-data> | yq -o=json                # yq
 
 # excel to csv
-in2csv file.xls         # csvkit (infers input type from filename extension)
-in2csv file.xlsx        # csvkit (infers input type from filename extension)
-in2csv --format xls     # csvkit (force input type)
-in2csv --format xlsx    # csvkit (force input type)
-unoconv -f csv f.xlsx   # libreoffice
+in2csv file.xls                         # csvkit (infers input type from filename extension)
+in2csv file.xlsx                        # csvkit (infers input type from filename extension)
+in2csv --format xls                     # csvkit (force input type)
+in2csv --format xlsx                    # csvkit (force input type)
+unoconv -f csv f.xlsx                   # libreoffice
 ```
 
 
