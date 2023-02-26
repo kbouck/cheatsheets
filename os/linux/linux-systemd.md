@@ -30,27 +30,45 @@ systemctl cat atd.service
 systemctl list-dependencies sshd.service
 systemctl show sshd.service
 
+# fs locations
+/etc/systemd/system                            # unit files (system)
+/usr/local/lib/systemd/system                  # unit files (system)
+/etc/systemd/user                              # unit files (user)
+$HOME/.config/systemd/user                     # unit files (user, homedir)
 ```
 
 
 
-# unit files
+# examples
 
-## simple
+- daemon 
 
 ```toml
 [Unit]
-Description=Foo
+Description=some daemon
+After=network.target
+StartLimitIntervalSec=0
+
 [Service]
-ExecStart=/usr/sbin/foo-daemon
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=<executable-and-arguments>
+
 [Install]
 WantedBy=multi-user.target
 ```
 
 
-## options
+
+
+
+
 
 ```toml
+[Unit]
+Description=
+
 [Service] 
 Type=
     simple   # (default) expect to remain running
@@ -67,7 +85,7 @@ RemainAfterExit=
 GuessMainPID=
 PIDFile=
 BusName=
-ExecStart=
+ExecStart=/usr/sbin/foo-daemon
 ExecStop=
 
     executable prefixes
@@ -94,51 +112,38 @@ Restart=
     on-abort	
     on-watchdog
 
-
 RestartSec=
 RestartPreventExitStatus=
 RestartForceExitStatus=
-
-
 TimeoutStartSec=
 TimeoutStopSec=
 TimeoutAbortSec=
 TimeoutSec=
 TimeoutStartFailureMode=
 TimeoutStopFailureMode=
-
 RuntimeMaxSec=
-
 WatchdogSec=
-
 StartLimitIntervalSec=
 StartLimitBurst=
-
 SuccessExitStatus=
-
 RootDirectoryStartOnly=
-
 NonBlocking=
-
 NotifyAccess=
-
 Sockets=
-
 FileDescriptorStoreMax=
-
 USBFunctionDescriptors=
-
 USBFunctionStrings=
-
 OOMPolicy=
 
+[Install]
+WantedBy=multi-user.target
 ```
 
 
 
+# autostart
 
-
-
+- [autostart](https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup#method-2-autostart) - Used to automatically run your programs once [LXDE](https://wiki.lxde.org/en/Main_Page) (graphical desktop environment used by Raspbian) starts. It's slightly more complicated than rc.local, but it lets you run programs that require graphical elements.
 
 
 
