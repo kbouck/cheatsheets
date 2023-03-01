@@ -115,33 +115,6 @@ popitem
 
 ```
 
-
-
-
-
-# packge mgmt
-
-- NOTE! see also python-venv
-
-```bash
-# install
-pip install <package>              # see venv first
-python -m pip install SomePackage  # see venv first
-
-# test package import
-python3 -c "import cv2"
-
-# Upgrade pip
-pip install --upgrade pip
-
-# List all installed packages without versions
-pip list --format=columns 2>/dev/null | cut -s -d ' ' -f 1 | tail -n +3
-
-# Install packages listed in the file
-pip install -r requirements.txt
-
-```
-
 # functions
 
 ```python
@@ -169,50 +142,4 @@ caller(10, my_callback)
 
 
 
-
-# regex
-
-```python
-import re
-
-recaptcha_regex = re.compile(r'<input type="hidden" id="recaptcha-token" value="([^"]+)">')
-match = recaptcha_regex.search(some_text)
-if match is None:
-    print("failed to match regex")
-    return None
-
-extracted_text = match.group(1)
-```
-
-
-
-
-
-# Libraries
-
-
-
-## Rotary Encoder
-
-move this elsewhere -- python-gpio? python-electronics?
-
-```python
-import rotary_encoder from components
-# switch
-# relay
-
-
-def init():
-  
-
-# define ro
-def add_event(clk, dt, cw_callback, ccw_callback, btn_callback):
-    ...
-    cw_callback()
-    ccw_callback()
-    btn_callback()
-
-# register callback functions
-rotary_encoder.set_callbacks(clk, dt, cw_callback=.., ccw_callback=, btn_callback=)
-```
 

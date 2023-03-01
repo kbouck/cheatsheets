@@ -56,6 +56,7 @@ echo "'$foo'"     # substitution w/in 's
 - https://github.com/onceupon/Bash-Oneliner
 
 ```bash
+# string truncation
 ${a:offset}          # substring from offset to end
 ${a:offset:length}   # substring from offset to offset+length
 ${a:offset:-length}  # substring from offset to end-length
@@ -63,29 +64,28 @@ ${a:-offset:-length} # substring from end-offset to end-length
 ${a:0:1}             # first char
 ${a:2}               # remove first string
 
-${#a}                # string length
-
+# string modification
 ${a/old/new}         # replace first occurrence 
 ${a//old/new}        # replace all occurrences
 ${a/#old/new}        # replace from beginning to (like regex ^)
 ${a/%old/new}        # replace from end (like regex $)
-
 ${a/old/}            # delete first occurrence
 ${a//old/}           # delete all occurrences
 ${a/#old/}           # delete from beginning
 ${a/%old/}           # delete from end
-
 ${a/#/new}           # insert prefix
 ${a/%/new}           # insert suffix
-
-${a:-b}              # default to literal value 'b' if $a is unset or null
-${a:+b}              # default to expansion of 'b' if $a is unset or null
-
+${a^^}               # uppercase
 ${a,,}               # lowercase
 
+${#a}                # string length
+
+${a:-b}              # literal value 'b' if $a is unset or null
+${a:=b}              # expansion of 'b' if $a is unset or null
+${a:+b}              # expansion of 'b' if $a is not (unset or null)
+${a:?b}              # message b written to stderr if $a is unset or null
+
 ${!a}                # variable indirection - access the variable named by value of a
-
-
 ```
 
 # heredocs

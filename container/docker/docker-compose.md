@@ -1,11 +1,3 @@
-
-
-
-
-
-
-#  cheatsheet
-
 ```bash
 # start/stop/restart
 sudo docker-compose up              # start
@@ -17,17 +9,15 @@ sudo docker-compose restart
 
 # status
 sudo docker-compose ps
-
-
 ```
-
-
 
 # install
 
 ```bash
 sudo apt install docker-compose
 ```
+
+
 
 
 
@@ -72,8 +62,9 @@ networks:
   front-tier: {}
   back-tier: {}
 
-
 ```
+
+
 
 
 
@@ -186,4 +177,36 @@ EOF
 
 
 
+
+# systemd service
+
+- https://gist.github.com/mosquito/b23e1c1e5723a7fd9e6568e5cf91180f
+
+```bash
+# place contents into 
+#     /etc/docker-services/postgres/docker-postgres.service
+#
+# make symbolic link
+#     sudo ln -s /etc/docker-services/postgres/docker-postgres.service /etc/systemd/system/docker-postgres.service
+#
+# refresh services
+#     sudo systemctl daemon-reload
+#
+# enable autostart
+#     sudo systemctl enable application.service
+[Unit]
+Description=%i service with docker compose
+PartOf=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/etc/docker/compose/%i
+ExecStart=/usr/bin/docker-compose up -d
+ExecStop=/usr/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target
+```
 

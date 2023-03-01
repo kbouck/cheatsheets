@@ -1,13 +1,3 @@
-# my take
-
-java rest service test library
-
-
-
-
-
-
-
 # gradle
 
 minimum build.gradle entries

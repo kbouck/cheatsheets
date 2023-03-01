@@ -1,64 +1,40 @@
-
-
-# list
+# venv / pip
 
 ```bash
-conda list                   # list all package in current env
-```
-
-
-
-
-
-# create
-
-```bash
-python3 -m venv venv        # create virtual env named "venv" 
-                            # will create a subdir in current dir named "venv"
+python3 -m venv venv               # create virtual env named "venv" 
+                                   # will create a subdir in current dir named "venv"
                             
-# conda                            
-conda create --name venv                            
+source venv/bin/activate           # activate virtual env (use source!)
+                                   # will prefix prompt with "(venv)"
+                                   # will prefix $PATH with venv/bin                          
+                                   # - venv/bin contains python/pip (symbolic links)
+                                   # creates deactivate() function
+which pip                          # show which venv is active
+pip install --upgrade pip          # upgrade pip  
+
+pip install <package>              # install pkg in activated venv (will run <venv>/bin/pip)
+python -m pip install SomePackage  
+python3 -c "import cv2"            # test import
+
+# List all installed packages without versions
+pip list --format=columns 2>/dev/null | cut -s -d ' ' -f 1 | tail -n +3
+pip install -r requirements.txt    # Install packages listed in a text file
+
+deactivate                         # deactivate venv (restores previous $PATH)
 ```
-
-# activate
-
-```bash
-source venv/bin/activate    # activate virtual env (use source!)
-                            # will prefix prompt with "(venv)"
-                            # will prefix $PATH with venv/bin                          
-                            # - venv/bin contains python/pip (symbolic links)
-                            # creates deactivate() function
-                          
-pip install --upgrade pip   # upgrade pip                          
-                          
-pip install ...             # will run venv/bin/pip
-
-which pip                   # show which venv is active
-```
-
-# deactivate
-
-```bash
-deactivate                # deactivate virtual env
-                          # restores previous $PATH
-```
-
-
 
 # conda
 
-- is basically pip + venv
+- basically pip + venv
 
 ```bash
+conda list                              # list all package in current env
 
-# new / activate
-conda create --name my_environment # create new environment 
-source activate my_environment     # activate
+conda install scikit-learn              # install
 
-# install
-conda install scikit-learn   # now you can install scikit-learn for the newly created environment 
+conda create --name my_environment      # create new environment 
+source activate my_environment          # activate
 
-
-/Users/kbouck/opt/miniconda3/envs/venv
+/Users/kbouck/opt/miniconda3/envs/venv  # fs location
 ```
 

@@ -29,7 +29,7 @@ groupby 1 sum 2    # group by column 1 and sum by column 2
 
 
 
-[this is the link text](../shell/awk.md)
+[this is the link text](../data.md)
 
 
 
@@ -40,53 +40,4 @@ datamash: invalid numeric value in line 1 field 3: 'Score'
 # data includes header line that needs to be skipped with --header-in, or --headers
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```
-.-------. .-------. .-------. .-------.                .-------.
-Clients    | HTTP  | | SAP   | | MQ    | | SFTP  |                | Queue |
-           | List. | | List. | | List. | | List. |                | List. |
-           '-------' '-------' '-------' '-------'                '-------'
-               |         |         |         |                        |
-               v         v         v         v                        v
-           .-------------------------------------.      .-----------------------------------.
-Managers   |           IngestionManager          |      |        ProcessingManager          |
-           '-------------------------------------'      '-----------------------------------'
-                 |            |            |                        |              |        |
-                 |            v            |                        v              |        v
-                 | .---------------------. |            .-----------------------.  | .-----------------.
-Engines          | |  RecognitionEngine  | |            | TransformationEngine  |  | | DeliveryEngine  |
-                 | '---------------------' |            '-----------------------'  v '-----------------'
-                 |                         |                            .--------------------.
-                 |                         |                            | AggregationEngine  |
-                 V                         v                            '--------------------'
-           .----------------.   .----------------.
-Resource   | MessageAccess  |   |  QueueAccess   |
-Access     '----------------'   '----------------'
-                 |                         |
-                 v                         v
-           .----------------.   .----------------.
-Resources  |    RDBMS       |   | Message Queue  |
-           `----------------'   '----------------'
-```
-
-
-
-
-
-![bob](/Users/kbouck/Downloads/bob2.png)
 

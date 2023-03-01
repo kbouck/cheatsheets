@@ -35,7 +35,7 @@ Timing buffered disk reads: 234 MB in  3.00 seconds =  77.98 MB/sec
 /usr/bin/                 #
 /usr/sbin/                #
 
-/opt/                     # add-on application software packages
+/opt/                     # user-installed system software packages
 
 /sbin/                    # system binaries
 
@@ -50,7 +50,9 @@ Timing buffered disk reads: 234 MB in  3.00 seconds =  77.98 MB/sec
 
 /srv/                     # data for services provided by this sytem
 
-/etc/                     # host-specific system configuration
+/etc/                     # host-specific system-wide config
+/etc/systemd/system       # systemd system unit files
+/etc/systemd/user         # systemd user unit files
 
 /lib/                     #
 
@@ -75,7 +77,24 @@ Timing buffered disk reads: 234 MB in  3.00 seconds =  77.98 MB/sec
 
 ```
 
+
+
+## app distribution
+
+```bash
+# NOTE: /opt is preffered over /usr/local for 3rd-party built package installation
+/opt/<app-name>                             # install dir
+/opt/<app-name>/bin/<app-binary>            # binary
+/etc/opt/<app-name>/config.conf             # config
+/var/opt/<app-name>/logs/<app>.log         # logs
+```
+
+
+
+
+
 # /var
+
 - Variable data files
 
 

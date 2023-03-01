@@ -47,5 +47,13 @@ date -u "+%Y-%m-%dT%H:%M:%S.000Z"     # current date in ISO8601 milliseconds (ap
 # convert
 date -r <epoch-seconds>	                    # convert epoch seconds to ...
 date -j -f '%m/%d/%y' '11/03/21' '+%Y%m%d'  # convert from 'MM/dd/yy' to 'yyyyMMdd' (j: do not set date, f: input format)
+
+# datestamp script output
+# - create following script and pipe other scripts to it
+#!/bin/bash
+while read -r line; do
+    timestamp=`date`
+    echo "$timestamp $line"
+done
 ```
 
