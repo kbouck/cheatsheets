@@ -4,18 +4,28 @@
 
 ```bash
 
+dig <host>                                      # basic query (queries A records)
 dig +short ...                                  # terse responses
-dig +short CNAME www.covidtests.gov             # CNAME query
-dig +short covidtests.gov                       # A record query
 dig +short -x <ip-address>                      # reverse lookup (ip-to-name)
 
-dig @192.168.1.1 ...                            # use a specific name server
+# query by record type
+dig A <host>                                    # query for A records
+dig AAAA <host>                                 # query for AAAA records
+dig MX <host>                                   # query for MX records
+dig CNAME <host>                                # query for CNAME records
+
+dig @192.168.1.1 <host>                         # query a specific name server
+```
+
+# dns cache
+
+```bash
+# flush dns cache
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder   # flush DNS cache (macOS)
 ```
 
 
-
-
-# Record Types
+# dns record types
 
 Reference:
 
@@ -24,20 +34,22 @@ Reference:
 - https://en.wikipedia.org/wiki/Message_transfer_agent
 
 ```bash
-A       ipv4 address record      # Returns (32-bit) ipv4 address used to map hostnames to IPs, 
+abbv.   record type
+=====   ============       
+A       ipv4 address             # Returns (32-bit) ipv4 address used to map hostnames to IPs, 
                                  # but also used for DNSBLs and storing subnet masks
-AAAA    ipv6 address record      # Returns ipv6 address
+AAAA    ipv6 address             # Returns ipv6 address
 ANAME   non-standard alias       
-CNAME   canonical name record    # Alias for an exact name. DNS lookup will retry lookup with new name.
-DNAME   delegation name record   # Alias for a name and all subtree/subnames. DNS lookup will retry lookup with new name.
-MX      mail exchange record     # Maps a domain name to a preference-ordered list of mail servers for that domain
+CNAME   canonical name           # Alias for an exact name. DNS lookup will retry lookup with new name.
+DNAME   delegation name          # Alias for a name and all subtree/subnames. DNS lookup will retry lookup with new name.
+MX      mail exchange            # Maps a domain name to a preference-ordered list of mail servers for that domain
 SRV
 PTR
 TXT
 HTTPS 
 ```
 
-# Pseudo TLDs 
+# pseudo-TLDs 
 
 ```bash
 .local        # mDNS, Apple
@@ -48,14 +60,18 @@ HTTPS
 ```
 
 
-# Protocol
+# protocol
 - https://www.plixer.com/blog/overview-of-dns-protocol-part-1-of-3/
 
 
-# DNS-over-TLS
+
+# security
+
+## DNSCrypt
+
 TODO
 
-# DNSCrypt
-TODO
+## DNS-over-TLS
 
+TODO
 

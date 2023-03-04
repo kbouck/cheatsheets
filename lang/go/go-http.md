@@ -1,4 +1,20 @@
+
+
 ```go
+
+resp, err := http.Get(url)
+
+```
+
+
+
+
+
+
+
+```go
+
+
 // Fetch retrieves the comic as per provided comic number
 func (hc *XKCDClient) Fetch(n ComicNumber, save bool) (model.Comic, error) {
     resp, err := hc.client.Get(hc.buildURL(n))

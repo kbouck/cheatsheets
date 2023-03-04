@@ -121,7 +121,10 @@ TimeoutAbortSec=
 TimeoutSec=
 TimeoutStartFailureMode=
 TimeoutStopFailureMode=
-RuntimeMaxSec=
+
+RuntimeMaxSec=30s
+
+
 WatchdogSec=
 StartLimitIntervalSec=
 StartLimitBurst=
@@ -149,5 +152,7 @@ WantedBy=multi-user.target
 
 # see also
 
+- https://www.freedesktop.org/software/systemd/man/systemd.service.html
+- https://www.freedesktop.org/software/systemd/man/systemd.time.html
 - https://systemd-by-example.com
 

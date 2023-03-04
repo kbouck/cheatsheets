@@ -13,7 +13,6 @@ edit /etc/hostname and /etc/hosts           # change hostname
 # netplan
 
 ```bash
-
 # ethernet
 
 
@@ -46,7 +45,6 @@ network:
 
 $ sudo netplan apply
 $ sudo netplan --debug apply                       # eg. use to troubleshoot errors
-
 ```
 
 # nmcli
@@ -62,4 +60,3 @@ lsof -i :<port>                    # identify process using a port
 fuser 80/tcp                       # identify process using a port
 ```
 
-# 
