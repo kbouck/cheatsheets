@@ -13,105 +13,77 @@ Timing cached reads:   12540 MB in  2.00 seconds = 6277.67 MB/sec
 Timing buffered disk reads: 234 MB in  3.00 seconds =  77.98 MB/sec
 ```
 
-# unix folder structure
-
-- https://www.pathname.com/fhs/pub/fhs-2.3.html
-- TODO split into unix common and os-specific deviations
-- http://lists.busybox.net/pipermail/busybox/2010-December/074114.html (usr / bin / sbin difference)
+# unix filesystem hierarchy
 
 ```bash
-# unix common (todo move out the os-specific stuff)
-/                         # root
-
+/                               # root
 /boot/
 
-/bin/
+# system binaries / libraries
+/bin/                           #
+/usr/                           #
+/usr/local/                     #
+/usr/local/share/               #
+/usr/local/opt/                 #
+/usr/local/bin/                 # (mac) 'brew' symlink sources (mac)
+/usr/local/Cellar/              # (mac) 'brew' symlink targets (mac)
+/usr/bin/                       #
+/usr/sbin/                      #
+/sbin/                          # system binaries
+/lib/                           #
 
-/usr/                     #
-/usr/local/
+# 3rd-party binaries / libraries
+/opt/                           # user-installed system software packages
+/opt/<app-name>                 # NOTE: /opt is preffered over /usr/local for 3rd-party built package installation
 
-/usr/local/share/
-/usr/local/opt/
-/usr/bin/                 #
-/usr/sbin/                #
+# config
+/etc/                           # host-specific system-wide config
+/etc/systemd/system             # systemd unit files - system
+/etc/systemd/user               # systemd unit files - user
+/etc/apt/                       #
+/etc/apt/sources.list.d/        #
 
-/opt/                     # user-installed system software packages
+# data / logs
+/var/                           # variable data files
+/var/lib/                       #
+/var/lib/docker/volumes/        #
+/var/lib/<name>/...             #
+/var/lib/unifi                  #
+/var/log/                       # logs
+/var/log/messages/              #
+/var/log/<app-name>/...         # app-specific logs 
 
-/sbin/                    # system binaries
-
-/media/                   # mount point for removeable media
-
-/mnt/                     # mount point for temporarily mounted filesystem
-
-/var/                     # variable data files
-/var/lib/                 #
-/var/log/                 # 
-/var/log/messages/        #
-
-/srv/                     # data for services provided by this sytem
-
-/etc/                     # host-specific system-wide config
-/etc/systemd/system       # systemd system unit files
-/etc/systemd/user         # systemd user unit files
-
-/lib/                     #
-
-/tmp/                     # temporary files. auto-deleted on startup by some OS's
-
-# linux
-/etc/apt/
-/etc/apt/sources.list.d/
-/etc/systemd/
-/etc/systemd/system/
-
-/home/                    # user home directories
+# devices
+/dev
 
 
-# mac
-/usr/local/bin/           # 'brew' symlink sources (mac)
-/usr/local/Cellar/        # 'brew' symlink targets (mac)
+# mount / media
+/media/                         # mount point for removeable media
+/mnt/                           # mount point for temporarily mounted filesystem
+/srv/                           # data for services provided by this sytem
 
-/Volumes/
+# user
+/home/                          # user home directories
 
-/Users/                   # user home directories
+# tmp
+/tmp/                           # temporary files. auto-deleted on startup by many os's
 
+# mac-specific
+/Volumes/                       # (mac) mounted volumes
+/Users/                         # (mac) user home directories
 ```
 
 
 
-## app distribution
+# app distribution
 
 ```bash
 # NOTE: /opt is preffered over /usr/local for 3rd-party built package installation
-/opt/<app-name>                             # install dir
-/opt/<app-name>/bin/<app-binary>            # binary
-/etc/opt/<app-name>/config.conf             # config
-/var/opt/<app-name>/logs/<app>.log         # logs
+/opt/<app-name>                             # app install dir
+/opt/<app-name>/bin/<app-binary>            # app binaries
+/etc/opt/<app-name>/config.conf             # app config
+/var/opt/<app-name>/logs/<app>.log          # app logs
 ```
-
-
-
-
-
-# /var
-
-- Variable data files
-
-
-```bash
-# /var/lib
-/var/lib/docker/volumes/
-/var/lib/<name>/...
-/var/lib/unifi
-
-# /var/log
-/var/log/unifi/...
-/var/log/fritz/...
-```
-
-
-
-
 
 # logical volume mgmt (lvm)
 
@@ -165,3 +137,8 @@ ubuntu-lv
 
 
 
+# references
+
+- https://www.pathname.com/fhs/pub/fhs-2.3.html
+- TODO split into unix common and os-specific deviations
+- http://lists.busybox.net/pipermail/busybox/2010-December/074114.html (usr / bin / sbin difference)

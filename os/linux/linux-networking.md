@@ -26,8 +26,8 @@ network:
       optional: true
       dhcp4: true
       access-points:
-        "DorkNET5":
-          password: "B1963BFD90"
+        "<ssid>":
+          password: "<pass>"
           
           
 network:
@@ -37,7 +37,7 @@ network:
       dhcp4: true
       access-points:
         DorkNET5:
-          password: B1963BFD90
+          password: <pass>
       
       
       

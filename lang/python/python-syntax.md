@@ -5,25 +5,20 @@
 ```python
 v = 'value'                              # declare and assign variable
 global v                                 # declare global variable scope inside function
-
-# casting
 v = str(1)                               # cast to string
 v = int(1)                               # cast to int
 v = float(1)                             # cast to float
-
 type(v)                                  # return type of the variable
 ```
 
 # collections
 
-## comparison
-
 ```python
-# literal                      mutable    ordered   index/slice   duplicates
-['a', 'b', 'c']     # list        X          X           X            X
-('a', 'b', 'c')     # tuple                  X           X            X 
-{'a', 'b', 'c'}     # set         X
-{'key':'val', ...}  # dict        X        
+# literal                        mutable    ordered   index/slice   duplicates
+['a', 'b', 'c']       # list        X          X           X            X
+('a', 'b', 'c')       # tuple                  X           X            X 
+{'a', 'b', 'c'}       # set         X
+{'key':'val', ...}    # dict        X        
 ```
 
 ## list
@@ -109,15 +104,15 @@ len(t)                                   # length of tuple
 t[0]                                     # first element in tuple         
 t[-1]                                    # last element in tuple
 t.index('element')                       # index of 'element' if found, else ...
-k,v = ('a', 'b')                         # desctructure
+k,v = ('a','b')                          # desctructure
 
 # mutate - n/a, tuples are immutable
 
 # iterate
-for element in t:                        # iterate over values
-for element in reversed(t):              # iterate over values in reversed order
-for index, element in enumerate(t):      # iterate over indices and values
-for element1,element2 in zip(t1, t2):    # iterate over multiple lists concurrently
+for element in t:                        # iterate over elements
+for element in reversed(t):              # iterate over elements in reversed order
+for index, element in enumerate(t):      # iterate over indices and elements
+for element1,element2 in zip(t1, t2):    # iterate over multiple tuples concurrently
     
 # test
 'element' in t                           # test membership
@@ -167,7 +162,7 @@ s.isdisjoint(s2)                         # test whether no elements common to bo
 
 
 
-## dictionary
+## dict
 
 ```python
 # construct
@@ -231,14 +226,14 @@ def frobnicate(*, timeout_seconds: int) -> None:
 ## callbacks
 
 ```python
-def my_callback(num):
-    print("function my_callback was called with ", num)
+def handler(num):
+    print("handler called with ", num)
 
-def caller(val, cb):
-    cb(val)
+def some_function(val, callback):
+    callback(val)
 
-caller(5, my_callback)
-caller(10, my_callback)
+caller(5, handler)
+caller(10, handler)
 ```
 
 
