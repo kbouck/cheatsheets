@@ -1,59 +1,43 @@
 
 
 ```bash
-# Open App from terminal
-open -n ./AppName.app --args -AppCommandLineArg
-
-
+open -n ./AppName.app --args -AppCommandLineArg    # Open App from terminal, with arguments
 ```
-
-
 
 # Startup Items
 
 ```bash
 # Startup or Login Item Folders
-/Library/LaunchAgents               # my stuff
-/Library/LaunchDaemons              # my stuff
-/System/Library/LaunchAgents        # macos stuff
-/System/Library/LaunchDaemons       # macos stuff
-~/Library/LaunchAgents
-
-
-
-# Startup or Login Items
-/Library/Preferences/com.apple/loginwindow.plist
-~/Library/Preferences/com.apple.loginwindow.plist  # binary prop list
-
-
-
+/System/Library/LaunchAgents                       # macos stuff
+/System/Library/LaunchDaemons                      # macos stuff
+/Library/LaunchAgents                              # my stuff
+/Library/LaunchDaemons                             # my stuff
+~/Library/LaunchAgents                             # my stuff
+/Library/Preferences/com.apple/loginwindow.plist   # see .plist below to view plist content
+~/Library/Preferences/com.apple.loginwindow.plist  # see .plist below to view plist content 
 ```
 
-
-
-## .DS_Store
+# Safari
 
 ```bash
-# recursively delete .DS_Store files
-find . -name '*.DS_Store' -type f -delete
+~/Library/Containers/Safari/Data/Library/Caches    # Safari Cache
 ```
 
-
-
-# Property List (.plist) files
+# Apple File Types
 
 ```bash
-# converting among binary and xml .plist formats (edits-in-place!)
-plutil -convert xml1 test.plist      # binary to xml
-plutil -convert binary1 test.plist   # xml to binary
+# .DS_Store
+find . -name '*.DS_Store' -type f -delete   # recursively delete .DS_Store files
+
+# .plist - Property List File
+# (WARNING: these edit-in-place!)
+plutil -convert xml1 test.plist      # convert binary to xml
+plutil -convert binary1 test.plist   # convert xml to binary
 ```
 
+## .dmg
 
-
-
-
-
-# .dmg
+- Disk Image
 
 Luckily it was easy enough to build a DMG of mpv myself, which I then installed by dragging it into the Applications folder:
 
@@ -75,5 +59,4 @@ With the openwith utility I can set mpv as the default application for video fil
 
 ```bash 
 openwith io.mpv mkv mov mp4 avi
-
 ```

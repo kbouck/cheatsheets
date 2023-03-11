@@ -16,6 +16,7 @@ https://github.com/alexhallam/tv/blob/main/img/sigs.png
 <csv-data> | column -s ,       # column command (-s specifies delimiter)
 <csv-data> | vd -f csv         # visidata - csv (interactive)
 <csv-data> | csvlook           # csvlook (interactive)
+<csv-data> | mlr --c2p cat     # miller (csv to pre)
 
 # json
 <json-data> | jless            # jless
@@ -64,7 +65,7 @@ grep -Ev '^\s*$|^\s*\#'    # remove empty lines and comments
 - todo grep
 - todo awk
 - todo jq
-- todo miller
+- todo mlr
 - todo csvkit
 
 # filter out fields / columns

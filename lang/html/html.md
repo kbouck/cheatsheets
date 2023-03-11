@@ -17,6 +17,28 @@
 </html>
 ```
 
+# javascript
+
+```html
+<script type="text/javascript"> ...</script>      <!-- inline script -->
+<script src="filename.js"></script>               <!-- include script -->
+```
+
+# dom
+
+```javascript
+document.getElementById("elementID")             // get element
+element.innerHTML = "Hello World!";              // modify element
+document.write(a);                               // append element
+
+console.log(a);                                  // log to browser console
+alert("Alert!");                                 // pop up modal alert
+var response = confirm("Are up Sure?");          // pop up modal alert with yes/no prompt
+prompt("Your age?","0");                         // pop up modal input with initial value 
+```
+
+
+
 
 
 # button

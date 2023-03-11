@@ -17,6 +17,36 @@ sudo docker-compose ps
 sudo apt install docker-compose
 ```
 
+# env
+
+```bash
+docker compose up                                  # use .env if exists
+docker compose --env-file ./config/.env.dev up     # use specific .env file
+
+```
+
+# ports
+
+```yaml
+services:
+  <service>:
+    ports:
+      - <host-port>:<container-port>
+```
+
+# volumes
+
+```yaml
+services:
+  <service>:
+    volumes:
+      # possible opts: ro, rw
+      - <host-path>:<container-path>:<opts>
+    
+volumes:
+  <volume-name>
+```
+
 
 
 

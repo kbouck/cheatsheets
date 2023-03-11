@@ -1,7 +1,3 @@
-
-
-# one-liners
-
 ```bash
 # print a year calendar with week numbers
 (cal 1 2021 | sed '3q;d' | sed '/^$/d'; for n in $(for i in {1..12}; do cal $i 2021 | tail -n "+3"; done); do printf "%2s " $n ; done | cut -c 22- | fold -w 21) | cat -n

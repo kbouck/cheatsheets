@@ -1,8 +1,6 @@
-# cheatsheet
-
 ```bash
-crontab -e   # edit
-crontab -l   # list
+crontab -e         # edit
+crontab -l         # list
 
 # format
 * * * * *  command to execute (use absolute path, no $PATH env during execution)
@@ -59,7 +57,6 @@ crontab $file
 0 * 19 6 * *     # On Juneteenth every hour
 0 9-17 * * 1-5   # During business hours
 
-
 ```
 
 
@@ -73,8 +70,6 @@ crontab $file
 - Select "Full Disk Access" in left nav
 - Add "/usr/sbin/cron" with checkbox enabled
 ```
-
-
 
 # references
 

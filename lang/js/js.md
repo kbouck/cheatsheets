@@ -16,6 +16,19 @@ Runtimes
 
 
 
+# variables and constants
+
+```javascript
+// var: function-scoped variable
+
+// let: block-scoped variable
+
+// const: block-scoped constant
+
+```
+
+
+
 # String Interpolation
 
 [JavaScript](https://en.wikipedia.org/wiki/JavaScript), as of the [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) 2015 (ES6) standard, supports string interpolation using backticks ````. This feature is called *template literals*.[[7\]](https://en.wikipedia.org/wiki/String_interpolation#cite_note-7) Here is an example:

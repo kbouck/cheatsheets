@@ -1,5 +1,3 @@
-# one-liners
-
 ```bash
 # float
 echo "1.5+2.3" | bc
@@ -11,17 +9,14 @@ bc <<< "obase=16; 255"         # decimal to hex: 255 -> FF
 bc <<< "ibase=16; FF"          # hex to decimal: FF -> 255
 
 # add list of numbers
-(one number per line, no blank lines) | paste -sd+ - | bc   # add list of numbers 
-```
+<list of numbers, one per line, no blank lines> | paste -sd+ - | bc   # add list of numbers 
 
-# bc
-
-```bash
 # options
 -l, --mathlb    # define the standard math libary
 
-# special environment variables that affect behvaior
+# environment variables that affect behvaior
 ibase        # input number base (default: 10)
 obase        # output number base (default: 10)
 scale        # precision (default: 0)
 ```
+
