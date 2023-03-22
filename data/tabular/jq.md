@@ -1,21 +1,22 @@
-
-
-# one-liners
+NOTE: *jq* and *gojq* share the same interface, and can be used interchangeably
 
 ```bash
 
 
 # date filter
-<json-data> | jq ''
-```
+<json> | gojq ''
 
-# flags
-
-```bash
--c                   # single-line output per object (array -> nd-json)
--s                   # slurp all lines into array (nd-json -> array) 
+<json> | gojq -c     # single-line output per object (array -> json-lines)
+-s                   # slurp all lines into an array (json-lines -> array) 
 -r                   # raw output (no "s around strings )
 --arg <key> <value>  # TODO
+
+```
+
+
+
+```bash
+
 ```
 
 # strings

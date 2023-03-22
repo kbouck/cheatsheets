@@ -22,6 +22,9 @@ Timing buffered disk reads: 234 MB in  3.00 seconds =  77.98 MB/sec
 # system binaries / libraries
 /bin/                           #
 /usr/                           #
+/usr/lib/
+/usr/lib/jvm/                   # JVM install dir on linux
+
 /usr/local/                     #
 /usr/local/share/               #
 /usr/local/opt/                 #

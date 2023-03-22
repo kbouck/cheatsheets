@@ -11,6 +11,9 @@ https://dougrichardson.us/notes/fail-fast-bash-scripting.html
 set -eEuo pipefail
 shopt -s inherit_errexit
 
+[[ $- = *i* ]] && echo "Don't source this script!" && return 10
+
+
 main() {
   parse_args
   validate_args

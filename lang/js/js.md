@@ -19,6 +19,8 @@ Runtimes
 # variables and constants
 
 ```javascript
+// no declaration keyword: global variable
+
 // var: function-scoped variable
 
 // let: block-scoped variable

@@ -1,7 +1,12 @@
 Windows Package Management
 
+# wingetui
 
-# WinGet
+- GUI for winget, scoop, and chocolatey
+- https://github.com/marticliment/WingetUI
+
+# winget
+
 - baked into OS
 
 ```
@@ -20,11 +25,17 @@ winget upgrade --all
 
 ```
 
+# chocolatey 
 
-Chocolatey 
+```bash
+todo
+```
 
+# scoop
 
+```bash
+todo
+```
 
-Scoop
 
 

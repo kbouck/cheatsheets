@@ -20,24 +20,30 @@ aggregate(5, 5, sum);
 
 # promises
 
-- represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
-- contains both the asynchronous operation code and calls to the consuming code
+- represent eventual completion or failure of an asynchronous operation and its resulting value or error.
+- contains both asynchronous operation code and the calls to the consuming code callback functions
 - promise states:
-  - pending: initial state
-  - fulfilled: success
-  - rejected: failed
+  - pending
+  - fulfilled
+  - rejected
 
 ```javascript
-const p = new Promise((resolve, reject) => {
-  setTimeout(() => { resolve("done"); }, 300);
+const promise = new Promise((resolve, reject) => {
+    resolve()      // call if success
+    reject()       // call if failure
 });
 
 
-// chained
-p.then(handleFulfilledA, handleRejectedA)
- .then(handleFulfilledB, handleRejectedB)
- .then(handleFulfilledC, handleRejectedC);
- .catch(handleRejectedAny);
+// consuming code
+promise.then(onFulfilled, onRjected)   // execs promise, 
+                                       // code continues, onFullfilled fn executed once promise resolved 
+
+// chained (sequential)
+promise
+    .then(fulfilledFn, rejectedFn)
+    .then(..., ...)
+    .then(..., ...);
+    .catch(...);
 
 ```
 
@@ -58,26 +64,39 @@ function f() { return Promise.resolve("done."); }   // function returns a promis
 f().then(
   function(value) { ... },                          // success
   function(error) { ... }                           // error
-);
-                   
-                   
-// await
-                   
+);              
 ```
 
 
 
-# await
+# async
 
-- makes function pause execution and wait for resolved promise before continuing
-- can only be used inside an `async` function
+- makes function return promise
+- resolves promise with return value
 
 ```javascript
-let value = await promise;
+async function f() {
+    let promise = new Promise(function(resolve) {
+}
 
 async function f() {
   let p = new Promise(function(resolve, reject) { resolve("done."); });
   document.getElementById("demo").innerHTML = await myPromise;
+}
+```
+
+#  await
+
+- used only *inside* async functions
+- blocks until promise is resolved
+
+```javascript
+await expression                     // expression is a promise, a then-able object, or a value
+
+async function someFunction() {
+    let result = await promise();    // block until promise resolution, then assign resolved value to var 
+                                     // if resolved, await returns resolved value
+                                     // if rejected, await throws rejected value
 }
 ```
 

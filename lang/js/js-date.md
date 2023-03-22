@@ -2,9 +2,8 @@
 
 ```javascript
 // construct
-new Date();
-new Date(0);                          // epoch date
-24 * 3600 * 1000
+new Date();                           // current datetime
+new Date(0);                          // epoch (Jan 1 1970)
 new Date("2023-01-02");               // 2023-01-02T00:00:00 (local timezone)
 new Date(2023, 0, 2, 0, 0, 0, 0);     // 2011-01-02T00:00:00 (local timezone)
 new Date(2023, 0, 2);                 // 2011-01-02T00:00:00 (local timezone)
@@ -22,5 +21,11 @@ date.getMinutes()                     //
 date.getSeconds()                     //
 date.getMilliseconds()                //
 date.getUTC...()                      // same as functions above but in UTC
+
+// parse (todo)
+
+
+// format (todo)
+
 ```
 

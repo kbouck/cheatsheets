@@ -1,5 +1,3 @@
-
-
 # sys.argv
 
 ```python
@@ -16,41 +14,30 @@ if len(sys.argv) > 2:
 ```python
 import argparse
 
-# Create the parser
-my_parser = argparse.ArgumentParser(description='List the content of a folder')
+# initialize arg parser
+parser = argparse.ArgumentParser(prog='myls', usage="...", description='program description')
 
-# Add the arguments
-my_parser.add_argument('path',
-                       metavar='path',
-                       type=str,
-                       help='the path to list')
+# define args
+parser.add_argument('path', metavar='path', type=str, help='the path to list')
+parser.add_argument('--input', type=str, required=True, help='Input file name')
+parser.add_argument('--output', type=str, required=True, help='Output file name')
+parser.add_argument('--verbose', action='store_true', help='Enable verbose mode')
 
-# Execute the parse_args() method
-args = my_parser.parse_args()
+# parse args
+args = parser.parse_args()
 
-# access args
-input_path = args.path
-
-# test if arg was set
+# validate args
 if (args.path is None):
   ...
 
 if not os.path.isdir(input_path):
     print('The path specified does not exist')
     sys.exit()
-```
-
-
-```python
-
-# name program
-my_parser = argparse.ArgumentParser(prog='myls',
-                                    description='List the content of a folder')
-
-# custom help
-my_parser = argparse.ArgumentParser(prog='myls',
-                                    usage='%(prog)s [options] path',
-                                    description='List the content of a folder'
-
+    
+# access args
+input_path = args.path  
+input_file = args.input
+output_file = args.output
+verbose = args.verbose
 ```
 

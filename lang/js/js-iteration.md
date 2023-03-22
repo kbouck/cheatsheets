@@ -1,4 +1,27 @@
+# for, while
 
+```javascript
+// for
+for (let i = 0; i < 5; i++) { ... }
+for (; i < len; ) { ... }
+
+// for-in
+for (variable in object) { ... }         // loop through properties of an object
+for (variable in array) { ... }          // loop through elements of an array
+
+// Array.forEach()
+array.forEach(() => { ... })             // call function once for each array element
+
+// for-of
+for (variable of iterable) { ... }       // loops through values of an iterable
+
+// while
+while (condition) { ... }
+
+// do-while
+do { ... } while (condition)
+
+```
 
 # iterable
 
