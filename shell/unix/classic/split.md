@@ -1,6 +1,3 @@
-
-# one-liners 
-
 ```bash
 split        # split every 1000 lines 
 split -l3    # split every 3 lines 
@@ -11,5 +8,4 @@ split -b10M  # split every 10 MiB (1024x1024)
 split -b10MB # split every 10 MB (1000x1000)
 split -C     # like -b but tries to split on line breaks.
 split -n2    # split into 2 similarly sized chunks 
-
 ```

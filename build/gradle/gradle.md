@@ -1,31 +1,30 @@
 
 
-# common commands
-
-```bash
-./gradlew init ...               # create project files
-./gradlew build                  # 
-./gradlew test                   # execute tests
-
-```
-
 # wrapper
 
 ```bash
 $ gradle wrapper --gradle-version 6.0.1
 
 # creates
-
-└── <project folder>
-    └── gradlew
-    └── gradlew.bat
-    └── gradle
-        └── wrapper
-            └── gradle-wrapper.jar
-            └── gradle-wrapper.properties
+└── gradlew
+└── gradlew.bat
+└── gradle
+    └── wrapper
+        └── gradle-wrapper.jar
+        └── gradle-wrapper.properties
 ```
 
 
+
+# common commands
+
+```bash
+./gradlew init ...               # create project files
+./gradlew build                  # 
+./gradlew test                   # execute tests
+```
+
+# 
 
 
 
@@ -38,7 +37,7 @@ gradle init
 # choices:
 # - project type (basic, app, library, gradle plugin)
 # - build script dsl language (groovy, kotlin)
-# - project name (default: current dir name)
+# - project name (default: current dicatr name)
 
 
 # non-interactive
@@ -197,7 +196,7 @@ dependencies {
 
 
 
-sourceSets
+# sourceSets
 
 ```groovy
 // TODO - are these needed?  defaults?
@@ -228,7 +227,6 @@ $ gradlew build
 
 ```bash
 # creates
-
 build
 ├── classes
 │   └── main
@@ -242,8 +240,6 @@ build
     └── jar
         └── MANIFEST.MF
 ```
-
-
 
 # test
 
@@ -269,7 +265,7 @@ tasks.named('test') {
 
 
 
-# structure
+# file structure
 
 ```bash
 build.gradle           # Main build file
@@ -295,7 +291,6 @@ gradle/
 └── checksums/
 
 
-
 # Source Files
 src/                   
 └── main/                # Source Base
@@ -310,7 +305,7 @@ src/
 
 
 # Build Output Files
-build/                   # Build Output Base
+build/                   # base dir
 ├── distributions/
 ├── tmp/                 # temp for jar creation, manifest.mf, etc.
 ├── scripts/
@@ -327,7 +322,49 @@ build/                   # Build Output Base
 
 # jar
 
+## library
+
+- just an archive of compiled classes
+
 ```groovy
+
+```
+
+## executable jar
+
+- dependencies not included
+
+```groovy
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.foo.bar.MainClass'
+        )
+    }
+}
+```
+
+## executable super-jar
+
+- dependencies included
+
+```groovy
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.foo.bar.MainClass'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+ }
+```
+
+
+
+```groovy
+// for references -- need to 
 // todo - need more stuff here - also how to package jar into java portable executable
 
 sourceCompatibility = 1.8

@@ -1,8 +1,21 @@
 
 
+# install
+
+```bash
+# install in venv
+# (set up and activate venv)
+pip install csvkit
+
+# system-wide
 
 
-# csv
+# might need python dev headers
+sudo apt-get install python-dev python-pip python-setuptools build-essential
+
+```
+
+
 
 
 

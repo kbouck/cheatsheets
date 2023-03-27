@@ -70,6 +70,11 @@ if [ $USER = 'abc' ]              # bracket form
 [ $file1 -ot $file2 ]  # older than
 [ $file1 -eg $file2 ]  # hard links to same file 
 [ -N $file ]           # file modified since last read
+
+# test if command exists (irrespective of location)
+# TODO - these don't work with zsh as output of type is more than just command location :-(
+if ! type "$command_name" > /dev/null; then ...
+if ! command_location="$(type -p "$command_name")" || [[ -z $command_location ]]; then ...
 ```
 
 # test and exit

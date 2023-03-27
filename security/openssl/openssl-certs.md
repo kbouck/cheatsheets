@@ -35,6 +35,8 @@ openssl req -new -key key.pem -out csr.pem                   # create csr intera
 openssl x509 -req -days 360 -in csr.pem \
         -signkey priv_key.pem -out cert.pem                  # sign
 
+openssl req -nodes -newkey rsa:2048 -keyout private.key -out CSR.csr -subj "/C=NL/ST=Zuid Holland/L=Amsterdam/O=Sparkling Network/OU=IT Department/CN=ssl.raymii.org"
+
 # keystore (pkcs12)
 openssl pkcs12 -in keystore.p12 -nokeys                      # view pkcs12 keystore contents (certs only)
 openssl pkcs12 -export -in keystore.pem -out keystore.p12    # convert keystore format PEM -> pkcs12
@@ -43,6 +45,7 @@ openssl pkcs12 -in keystore.p12 -cacerts -nokeys             # get CA certs from
 openssl pkcs12 -in keystore.p12 -nocerts -nodes              # get private key from pkcs12 keystore
 openssl pkcs12 -export -in cert.pem -inkey priv_key.pem \ 
         -CAfile ca.pem -name "server" -out server.p12        # add cert and private key to pkcs12 keystore
+
 
 # verify
 openssl verify -verbose -CAfile root.pem cert.pem            # verify 2-level cert chain

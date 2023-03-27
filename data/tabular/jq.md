@@ -1,21 +1,23 @@
-
-
-# one-liners
+NOTE: ***jq*** and ***gojq*** share the same interface, so can be used (mostly) interchangeably
 
 ```bash
+# common filters
+'.'
+'.doc'
+'.docline.array'
+'.doc.array[0]'
+'.doc.array[0].field'
 
 
-# date filter
-<json-data> | jq ''
-```
 
-# flags
+<json> | gojq ''
 
-```bash
--c                   # single-line output per object (array -> nd-json)
--s                   # slurp all lines into array (nd-json -> array) 
--r                   # raw output (no "s around strings )
---arg <key> <value>  # TODO
+
+<json> | gojq -c                   # single-line output per object (array -> json-lines)
+              -s                   # slurp all lines into an array (json-lines -> array) 
+              -r                   # raw output (no "s around strings )
+              --arg <key> <value>  # TODO
+
 ```
 
 # strings
@@ -31,6 +33,7 @@
 # dates
 
 ```bash
+# given a string date or timestamp in the form ("2020-01-01T11:22:33")
 .date[0:4]               # year (2020)
 .date[0:7]               # year-month (2020-02)
 .date[0:10]              # year-month-day (2020-01-01)
@@ -38,8 +41,6 @@
 # selecting by date
 
 ```
-
-
 
 # filter
 
@@ -77,7 +78,7 @@ del(.field1, .field2)                         # delete multiple entries
 
 # Examples
 
-## JSON to CSV
+## json to csv
 
 ```bash
 (map(keys) | add | unique) as $cols               # get array of field names

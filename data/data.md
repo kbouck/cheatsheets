@@ -1,6 +1,6 @@
 A comparison of common tasks across various data tools. 
 
-This page should exclude commands that are too verbose or not expressible as one-liners.
+This page is focused on concise, composable commands, expressible as one-liners on the command line. It avoids any commands whose expression becomes too verbose.
 
 # view
 
@@ -16,117 +16,200 @@ https://github.com/alexhallam/tv/blob/main/img/sigs.png
 <csv-data> | column -s ,       # column command (-s specifies delimiter)
 <csv-data> | vd -f csv         # visidata - csv (interactive)
 <csv-data> | csvlook           # csvlook (interactive)
+<csv-data> | mlr --c2p cat     # miller (csv to pre)
 
 # json
-<json-data> | jless            # jless
-<json-data> | vd -f json       # visidata (interactive)
+<json> | gojq                  # gojq
+<json> | jless                 # jless
+<json> | vd -f json            # visidata (interactive)
 
 # jsonl (json-lines)
 <json-lines> | vd -f jsonl     # visidata (interactive)
-<todo>                         # jq
-<todo>                         # miller
+<json-lines> | gojq            # gojq 
+<json-lines> | gojq -c         # gojq - compact (json-lines) output
+<json-lines> | jq              # jq
+<json-lines> | mlr --json      # miller
+<json-lines> | mlr --jsonl     # miller
 
 # yaml
-<yaml-data> | yq               # yq - 
-<yaml-data> | yq -P            # yq - Pretty print
-<yaml-data> | vd -f yaml       # visidata (interactive)
+<yaml> | gojq --yaml-input --yaml-output  # gojq - pretty-print
+<yaml> | yq                               # yq - fugly-print
+<yaml> | yq -P                            # yq - pretty-print
+<yaml> | vd -f yaml                       # visidata (interactive)
 
 # toml
+<toml> | dasel -r toml -w json  # dasel - output as json
+<toml> | rq -t                  # rq - output as json
+<toml> | rq -tY                 # rq - output as yaml
+
+# xml
+<xml> | xq                      # xq - json output
+<xml> | xq -x                   # xq - xml output
+<xml> | xq --xml-output         # xq - xml output
 
 # protobuf
 
+
 # message pack
+<msg-pack> | rq -mJ             # rq - output as json
+<msg-pack> | rq -mY             # rq - output as yaml
+
 
 # avro
-
+<avro> | rq -a                  # rq - output as json
+<avro> | rq -aY                 # rq - output as yaml
 
 # excel
-vd -f xls                      # visidata (interactive)
-vd -f xlsx                     # visidata (interactive)
+vd file.xlsx                    # visidata - view interactive (.xlsx inferred)
+vd --format xlsx file.xlsx      # visidata - view interactive (.xlsx explicit)
+<xls>  | in2csv --format xls    # csvkit - view as csv
+<xlsx> | in2csv --format xlsx   # csvkit - view as csv
+in2csv file.xls                 # csvkit - view as csv
+in2csv file.xlsx                # csvkit - view as csv
+in2csv -f xls file.xls          # csvkit - view as csv
+in2csv -f xlsx file.xlsx        # csvkit - view as csv
+in2csv --format xls file.xls    # csvkit - view as csv
+in2csv --format xlsx file.xlsx  # csvkit - view as csv
+in2csv --sheet sheet file.xlsx  # csvkit - view as csv (specify sheet)
 
+# sqlite
+vd db.sqlite                    # visidata - view interactive
+                                # csvkit
 
-# xml
+# python object
+>>> visidata.pyobj.view(obj)    # python/visidata - view py object in REPL
+
+# pandas dataframe
+>>> visidata.vd.view_pandas(df) # python/visidata - view pandas dataframe in REPL
 
 ```
 
 # filter
 
 ```bash
-# filter out empty lines and/or comments
+# filter out empty lines / comments
 sed '/^$/d'                # remove empty lines
 grep -Ev '^\s*$'           # remove empty lines
 sed 's/\#.*$//g'           # remove comments
 mlr --skip-comments        # remove comments
 datamash --skip-comments   # remove comments
-grep -Ev '^\s*$|^\s*\#'    # remove empty lines and comments
+grep -Ev '^\s*$|^\s*\#'    # remove commands and empty lines
 
-# filter out lines / rows
+# filter by line/row number
 - todo grep
 - todo awk
 - todo jq
-- todo miller
+- todo mlr
 - todo csvkit
 
-# filter out fields / columns
-# - by index
-awk '{ print $1 }'            # print column 1
-awk '{ print $2,$3,$4,$5 }'   # print columns 2-5 (incl.)
-cut -d " " -f1                # print column 1
-cut -d " " -f2-5              # print columns 2-5 (incl.)
-choose 1                      # print column 1
-choose 2:5                    # print columns 2-5 (incl.)
-# - by name
-mlr ... todo ...
+# filter by field/column index
+awk '{ print $1 }'            # include col 1
+awk '{ print $2,$3,$4,$5 }'   # include col 2-5
+cut -d" " -f1                 # include col 1 (space-delimited)
+tr -s ' ' | cut -d -f1        # include col 1 (multiple-space-delimited) 
+cut -d" " -f2-5               # include cols 2-5
+choose 1                      # include col 1
+choose 2:5                    # include cols 2-5
+mlr cut -f 1                  # include col 1 (data already contains numeric header row) 
+mlr -N cut -f 1               # include col 1 (data has no header row, -N adds it) 
+mlr -N cut -x -f 1            # exclude col 1 (data has no header row, -N adds it) 
+
+# filter by field/column name
+mlr cut -f <col1[,col2,...]>     # include cols 
+mlr cut -x -f <col1[,col2,...]>  # exclude cols 
 todo - jq '... todo ... '
 
+# filter html by css selector
+<html> | xq -q "body > p"
 ```
 
-# format conversion
+# convert
 
 
 ```bash
-# csv to json
-<csv-data> | mlr --c2j                  # miller 
+# csv
+<csv> | mlr --c2j                       # miller - csv to json
+in2csv file.xls                         # csvkit - csv from excel (.xls, inferred)
+in2csv file.xlsx                        # csvkit - csv from excel (.xlsx, inferred)
+in2csv --format xls  file.xls           # csvkit - csv from excel (.xls)
+in2csv --format xlsx file.xlsx          # csvkit - csv from excel (.xlsx)
+vd -b input.csv -o output.json          # visidata - csv to json
 
-# json to csv
-<json-data> | mlr --j2c catbb           # miller
-<json-data> | jq '... | @csv'           # jq
+# json
+<json> | mlr --j2c cat                  # miller - json to csv
+<json> | gojq --yaml-output             # gojq - json to yaml
+<json> | jq '... | @csv'                # jq - json to csv
+<json> | yq -P                          # yq - json to yaml (-P pretty-print)
 in2csv file.json                        # csvkit (infer input type from filename) 
-<json-data> | in2csv --format json      # csvkit (force input type)
-<json-data> | in2csv --format ndjson    #
+<json> | in2csv --format json           # csvkit (force input type)
+fx file.json                            # fx (view, interactive)
+<json> | fx                             # fx (view, interactive)
+<json> | fx .                           # fx w/ selection (view, interactive)
+fx data.json '.filter(x => x > 10)'     # fx w/ js reducer
 
-# json to yaml
-<json-data> | yq -P                     # yq (-P pretty-prints in yaml)
+# jsonl (json-lines)
+<json> | in2csv --format ndjson         # csvkit
 
-# yaml to json
-<yaml-data> | yq -o=json                # yq
+# yaml
+<yaml> | gojq --yaml-input              # gojq - yaml to json 
+<yaml> | yq -o=json                     # yq - yaml to json
 
-# excel to csv
-in2csv file.xls                         # csvkit (infers input type from filename extension)
-in2csv file.xlsx                        # csvkit (infers input type from filename extension)
-in2csv --format xls                     # csvkit (force input type)
-in2csv --format xlsx                    # csvkit (force input type)
-unoconv -f csv f.xlsx                   # libreoffice
+# toml
+<toml> | dasel -r toml -w json          # dasel - toml to json
+<toml> | dasel -r toml -w yaml          # dasel - toml to yaml
+<toml> | rq -t                          # rq - toml to json
+<toml> | rq -tJ                         # rq - toml to json
+<toml> | rq -tY                         # rq - toml to yaml
+
+
+# parquet
+cat in.parquet | dsq                    # dsq
+
+# excel
+in2csv file.xls                         # csvkit - excel to csv (.xls inferred)
+in2csv file.xlsx                        # csvkit - excel to csv (.xlsx inferred)
+in2csv --format xls                     # csvkit - excel to csv (.xls forced)
+in2csv --format xlsx                    # csvkit - excel to csv (.xlsx forced)
+unoconv -f csv f.xlsx                   # libreoffice (** NOTE: deprecated in favor of unoconvert/unoserver)
+unoconvert --convert-to csv file.csv
+unoserver 
+libreoffice --headless --convert-to pdf file.odf  # libreoffice/unoserver - excel to pdf
+vd -b input.xlsx -o output.tsv input.xlsx    # visidata - excel to tsv (NOTE: adds "sheet" column) 
+vd                                      # visidata - excel to json
+vd                                      # visidata - excel to sqlite
+dsq file.xlsx                           # datastation/dsq - excel to json
+<excel> | dsq                           # datastation/dsq - excel to json
+dsq file.xlsx '<sql-query>'             # datastation/dsq - excel to json, exec sql query
+
+# sqlite
+- todo
 ```
 
 
 
-## tidy / pivot / reshape / crosstab / long-to-wide
+# reshape
 
-comand-line
+**tidy / pivot / reshape / crosstab / long-to-wide**
 
 ```bash
-# long/untidy input, with headers
-#   where: col 1 contains row headers
-#          col 2 contains column headers
-#          col 3 contains numeric amount to count or aggregate
+# long/untidy data
+# - is where group/category names area represented in row data, rather than in column headers 
+# 
+# example below
+#   where: col 1 contains group/category names
+#          col 2 contains subgroup/subcategory names
+#          col 3 contains numeric amount to count or aggregate per group/category
 # ===============================
 # cat  subcat  amount
 # a    x       3
 # a    y       7
 # b    x       21
 # a    x       40
+```
 
+**comand-line**
+
+```bash
 # miller - reshape (long-to-wide)
 # - (!) susceptible to missing values for a given category, 
 #       whereas datamash will just print out N/A
@@ -151,9 +234,7 @@ datamash ... --filler=0                          # populate empties with 0 inste
 
 ```
 
-
-
-libs
+**javascript**
 
 ```bash
 # javascript
@@ -171,8 +252,11 @@ wide_table = long_table
 
 # observable plot
 
+```
 
+**python**
 
+```python
 # python - pandas
 # ===============
 # rows = list of dictionaries, cols_set is list or set of column names
@@ -180,9 +264,7 @@ df = pd.DataFrame(rows, columns=col_set)
 df.to_csv(<output-filename>)
 ```
 
-
-
-sql
+**sql**
 
 ```sql
 # postgres - crosstab function
@@ -209,9 +291,7 @@ todo
 
 ```
 
-
-
-desktop apps
+**desktop apps**
 
 ```bash
 # excel - pivot table 
@@ -231,7 +311,8 @@ TODO
 # join (shell)
 
 
-# csvjoin
+# csvkit
+csvjoin
 
 
 # miller
@@ -251,35 +332,33 @@ https://www.sqlite.org/csv.html
 
 # aggregate
 
-## min, max, sum, mean, median
+**command-line**
 
 ```bash
+# bc
+<number-list> | paste -sd+ - | bc       # sum (number-list, one number per line)
+
 # datamash
-datamash -W --sort -g 1 sum 2           # whitespace-delimited, sort, group by col 1, sum col 2
+datamash -W --sort -g 1 sum 2           # sort, group by col 1, sum col 2 (whitespace-delimited input)
 datamash -W --sort groupby 1 sum 2      # ""
-datamash "" --header-out                # "" with headers
+datamash "" --header-out                # "" include headers in output
 
 
 # miller
-- see: https://miller.readthedocs.io/en/latest/reference-verbs/#stats1
-
-mlr ... stats1 -a sum -f x,y -g month
-
-
-aggregation functions:
-- min
-- max
-- sum
-- mean
-- median
-- p10, p50, p95, p##...
-- ...
-
-puts new fields suffixed with aggregation type (eg. x_sum)
+# - https://miller.readthedocs.io/en/latest/reference-verbs/#stats1
+# stats1: adds aggregate result field as field name suffixed with agg type (eg. x_sum)
+mlr ... stats1 -f x,y -g month -a sum      #
+                               -a min      #
+                               -a max      #
+                               -a mean     #
+                               -a median   # 
+                               -a p10      # 10th quantile
+                               -a p95      # 95th quantile
+                               -a pNN      # NNth quantile (00-99)
 
 
-
-
+# csvkit
+csvstat file.csv
 
 # excel
 - pivot table
@@ -287,7 +366,11 @@ puts new fields suffixed with aggregation type (eg. x_sum)
 
 # sql
 
+```
 
+**javascript**
+
+```javascript
 # javascript - vanilla
 Math.min(...array);  // min
 Math.max(...array);  // max
@@ -312,7 +395,7 @@ array.reduce(function(res, value) {
 }, {});
 
 
-# javascript - d3
+// javascript - d3
 // min/max/sum
 d3.min(<iterable>[, accessor])
 d3.max(<iterable>[, accessor])
@@ -325,40 +408,42 @@ d3.variance(...)
 // grouping, aggregation
 d3.rollup(array, <reducer-fn>, <group-accessor-fn>)
 d3.rollup(array, v => d3.sum(v, d => d.earnings), d => d.sport)
-
-
 ```
 
 
 
 ## sliding window
 
+**command-line**
+
 ```bash
 # miller
 # https://miller.readthedocs.io/en/latest/reference-verbs/#step
-mlr step -f <field(s)> -a <stepper
--a slwin_7_0                # average of last 7 values
+mlr step -f <field(s)> -a <stepper>     #
+                       -a counter       # instance count
+                       -a delta         # difference
+                       -a ewma          # exponentially-weighted moving average
+                       -a from-first    # difference from first record
+                       -a ratio         # ratio
+                       -a rsum          # running sum
+                       -a shift         # (alias for shift_lag)
+                       -a shift_lag     # include value(s) from the previous record
+                       -a shift_lead    # include value(s) from the next record
+                       -a slwin_m_n     # sliding-window average (window is m records back and n forward) 
+                                        # E.g. slwin_7_2 for 7 back and 2 forward.
+                       -a slwin_7_0     # average of previous 7 values     
+```
 
-# steppers:
-counter    Count instances of field(s) between successive records
-delta      Compute differences in field(s) between successive records
-ewma       Exponentially weighted moving average over successive records
-from-first Compute differences in field(s) from first record
-ratio      Compute ratios in field(s) between successive records
-rsum       Compute running sums of field(s) between successive records
-shift      Alias for shift_lag
-shift_lag  Include value(s) in field(s) from the previous record, if any
-shift_lead Include value(s) in field(s) from the next record, if any
-slwin      Sliding-window averages over m records back and n forward. E.g. slwin_7_2 for 7 back and 2 forward.
 
 
-# sql
-# window functions
-# https://www.sqlite.org/windowfunctions.html
+**SQL**
+
+- sql window functions: https://www.sqlite.org/windowfunctions.html
+
+```sql
 SELECT a, b, group_concat(b, '.') OVER (
-  ORDER BY a ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+    ORDER BY a ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
 ) AS group_concat FROM t1;
-
 
 
 # - taken from: https://stackoverflow.com/questions/66498051/rolling-7-day-average-using-calculated-averages
@@ -373,35 +458,54 @@ from tbl t outer apply
             order by t2.date desc
            ) t2
      ) t2;
+```
 
+**javascript**
 
-# excel
-- Data Analysis -> Moving Average
-
-
-# javascript
+```javascript
+// sum/mean/min/max
 someArray = [1, 2, 3, 4, 5, 6, 7, NaN, 9, 10];
-var before=2; // num of elements before index to include in window
-var after=2;  // num of elements after index to include in window
+const window_before = 2;   // window size - before index
+const window_after = 2;    // window size - after index
 someArray.map((element, i, array) => {
-  const subArray = array.slice(Math.max(i-before, 0), Math.min(i+after+1, array.length))
-    .filter(v => !Number.isNaN(v)); // remove any NaN
+  const subArray = someArray
+    .slice(Math.max(i-window_before, 0), Math.min(i+window_after+1, array.length)) // get window slice
+    .filter(v => !Number.isNaN(v)); // remove any NaN's
   return {
     "window_sum": subArray.reduce((a, b) => a + b, 0),
     "window_mean": subArray.reduce((a, b) => a + b, 0) / subArray.length,
-    "window_min": Math.min(...subArray), // destructuring converts arrays to the individual values that Math fns want
-    "window_max": Math.max(...subArray)    
+    "window_min": Math.min(...subArray),  // destructure array as Math fn's want individuals 
+    "window_max": Math.max(...subArray)   // destructure array as Math fn's want individuals
   };
 });
 
-
+// quantile (not sure about this function -- need to review)
+const quantile = (arr, q) => {
+    const sorted = asc(arr);
+    const pos = (sorted.length - 1) * q;
+    const base = Math.floor(pos);
+    const rest = pos - base;
+    if (sorted[base + 1] !== undefined) {
+        return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
+    } else {
+        return sorted[base];
+    }
+};
 ```
 
+**desktop apps**
 
+```bash
+# excel
+- Data Analysis -> Moving Average
+
+# tableau
+- todo
+```
 
 # chart
 
-## bar
+**command-line**
 
 ```bash
 # miller
@@ -415,10 +519,12 @@ mlr ... put '$bars=$metricField' then bar -f bars -c █ -b " " --lo 0 --hi 500
 todo
 
 # gnuplot
+todo
+```
 
-# excel
-- data bars
+**sql**
 
+```sql
 # sql - sqlite
 # use format string with a dynamic quanitifier
 # printf('%.5c', '█') will print 5 bar chars
@@ -431,18 +537,22 @@ select *,printf('%.' || cast(10*(room_temp-20.0)/(30-20) as int) ||'c', '█') a
 # https://www.postgresql.org/docs/current/functions-string.html#FUNCTIONS-STRING-FORMAT
 # same as sqlite, but use 'format' fn
 select *,format('%.' || <calculation> || 'c', '█') as bars
+
 ```
 
-## heatmap
+**javascript**
+
+```javascript
+// observable/d3/plot
+```
+
+**excel**
 
 ```bash
+# bar chart (in the cells)
+- data bars
 
-
-# excel
+# heatmap
 - pivot table, with conditional formating using color scales
-
-# observable/d3/plot
-
-
 ```
 

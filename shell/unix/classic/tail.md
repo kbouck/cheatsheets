@@ -1,5 +1,3 @@
-## one-liners
-
 ```bash
 tail          # show last 10 lines
 tail -n3      # show last  3 lines 
