@@ -8,6 +8,8 @@ sudo apt update                          # update pkg cache metadata
 sudo apt upgrade                         # upgrade installed pkgs to latest versions
 sudo apt install                         #
 sudo apt install -y                      # "", answering yes to prompts
+sudo dpkg -i pkg.deb                     # install pkg from file
+sudo apt install pkg.deb                 # install pkg from file
 sudo apt search <keyword>                # search pkg repo by keyword
 sudo apt list                            # list pkg name(s)
 sudo apt list <package(s)>               # list pkg name(s) (single line output)

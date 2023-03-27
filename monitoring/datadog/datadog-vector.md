@@ -2,7 +2,7 @@ https://vector.dev/
 
 # history
 
-- In 2021, Datadog acquired Timber Technologies, developers of Vector
+- In 2021, Datadog acquired Timber Technologies (developers of Vector)
 
 
 
@@ -15,23 +15,30 @@ https://vector.dev/
 - pipeline
 - acts on a single event
 
+
+
+## config
+
+```toml
+timezone                                  # 
+
+# env vars
+TZ="US/Eastern" vector -c vector.toml     # set
+timezone = ${TZ}                          # access
+timezone = ${TZ:?env var TZ must be set}          # access - exit with error message if not exists
+
+```
+
 ## remap 
 
 - VRL: vector remap language
 
 ```toml
 
-del(.user_info)                         # delete field
-
-# timestamp
-.timestamp = now()                      # add current timestamp
-.timestamp = to_unix_timestamp(to_timestamp!(.timestamp))  # timestamp convert to unix
-
-# json
-. = parse_json!(string!(.message))      # parse raw json 
 
 
-.message = downcase(string!(.message))  # lowercase field 
+# delete fields
+del(.user_info)
 ```
 
 ## filter

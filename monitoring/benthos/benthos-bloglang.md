@@ -50,3 +50,7 @@ root.new_doc = match this.doc {
   _ => this
 }
 ```
+
+# functions
+
+- https://www.benthos.dev/docs/guides/bloblang/functions

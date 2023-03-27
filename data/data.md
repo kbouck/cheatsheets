@@ -49,6 +49,7 @@ https://github.com/alexhallam/tv/blob/main/img/sigs.png
 
 # protobuf
 
+
 # message pack
 <msg-pack> | rq -mJ             # rq - output as json
 <msg-pack> | rq -mY             # rq - output as yaml
@@ -59,22 +60,40 @@ https://github.com/alexhallam/tv/blob/main/img/sigs.png
 <avro> | rq -aY                 # rq - output as yaml
 
 # excel
-<xls>  | vd -f xls              # visidata (interactive)
-<xlsx> | vd -f xlsx             # visidata (interactive)
+vd file.xlsx                    # visidata - view interactive (.xlsx inferred)
+vd --format xlsx file.xlsx      # visidata - view interactive (.xlsx explicit)
+<xls>  | in2csv --format xls    # csvkit - view as csv
+<xlsx> | in2csv --format xlsx   # csvkit - view as csv
+in2csv file.xls                 # csvkit - view as csv
+in2csv file.xlsx                # csvkit - view as csv
+in2csv -f xls file.xls          # csvkit - view as csv
+in2csv -f xlsx file.xlsx        # csvkit - view as csv
+in2csv --format xls file.xls    # csvkit - view as csv
+in2csv --format xlsx file.xlsx  # csvkit - view as csv
+in2csv --sheet sheet file.xlsx  # csvkit - view as csv (specify sheet)
 
+# sqlite
+vd db.sqlite                    # visidata - view interactive
+                                # csvkit
+
+# python object
+>>> visidata.pyobj.view(obj)    # python/visidata - view py object in REPL
+
+# pandas dataframe
+>>> visidata.vd.view_pandas(df) # python/visidata - view pandas dataframe in REPL
 
 ```
 
 # filter
 
 ```bash
-# filter empty lines / comments
+# filter out empty lines / comments
 sed '/^$/d'                # remove empty lines
 grep -Ev '^\s*$'           # remove empty lines
 sed 's/\#.*$//g'           # remove comments
 mlr --skip-comments        # remove comments
 datamash --skip-comments   # remove comments
-grep -Ev '^\s*$|^\s*\#'    # remove empty lines and comments
+grep -Ev '^\s*$|^\s*\#'    # remove commands and empty lines
 
 # filter by line/row number
 - todo grep
@@ -100,7 +119,7 @@ mlr cut -f <col1[,col2,...]>     # include cols
 mlr cut -x -f <col1[,col2,...]>  # exclude cols 
 todo - jq '... todo ... '
 
-# filter html by css
+# filter html by css selector
 <html> | xq -q "body > p"
 ```
 
@@ -109,36 +128,61 @@ todo - jq '... todo ... '
 
 ```bash
 # csv
-<csv> | mlr --c2j                       # miller - to json
+<csv> | mlr --c2j                       # miller - csv to json
+in2csv file.xls                         # csvkit - csv from excel (.xls, inferred)
+in2csv file.xlsx                        # csvkit - csv from excel (.xlsx, inferred)
+in2csv --format xls  file.xls           # csvkit - csv from excel (.xls)
+in2csv --format xlsx file.xlsx          # csvkit - csv from excel (.xlsx)
+vd -b input.csv -o output.json          # visidata - csv to json
 
 # json
-<json> | mlr --j2c cat                  # miller - to csv
-<json> | jq '... | @csv'                # jq - to csv
+<json> | mlr --j2c cat                  # miller - json to csv
+<json> | gojq --yaml-output             # gojq - json to yaml
+<json> | jq '... | @csv'                # jq - json to csv
+<json> | yq -P                          # yq - json to yaml (-P pretty-print)
 in2csv file.json                        # csvkit (infer input type from filename) 
 <json> | in2csv --format json           # csvkit (force input type)
-<json> | gojq --yaml-output             # gojq - to yaml
-<json> | yq -P                          # yq - to yaml (-P pretty-print)
+fx file.json                            # fx (view, interactive)
+<json> | fx                             # fx (view, interactive)
+<json> | fx .                           # fx w/ selection (view, interactive)
+fx data.json '.filter(x => x > 10)'     # fx w/ js reducer
 
 # jsonl (json-lines)
 <json> | in2csv --format ndjson         # csvkit
 
 # yaml
-<yaml> | gojq --yaml-input              # gojq - to json 
-<yaml> | yq -o=json                     # yq - to json
+<yaml> | gojq --yaml-input              # gojq - yaml to json 
+<yaml> | yq -o=json                     # yq - yaml to json
 
 # toml
-<toml> | dasel -r toml -w json          # dasel - to json
-<toml> | dasel -r toml -w yaml          # dasel - to yaml
-<toml> | rq -t                          # rq - to json
-<toml> | rq -tJ                         # rq - to json
-<toml> | rq -tY                         # rq - to yaml
+<toml> | dasel -r toml -w json          # dasel - toml to json
+<toml> | dasel -r toml -w yaml          # dasel - toml to yaml
+<toml> | rq -t                          # rq - toml to json
+<toml> | rq -tJ                         # rq - toml to json
+<toml> | rq -tY                         # rq - toml to yaml
 
-# excel to csv
-in2csv file.xls                         # csvkit (infers input type from filename extension)
-in2csv file.xlsx                        # csvkit (infers input type from filename extension)
-in2csv --format xls                     # csvkit (force input type)
-in2csv --format xlsx                    # csvkit (force input type)
-unoconv -f csv f.xlsx                   # libreoffice
+
+# parquet
+cat in.parquet | dsq                    # dsq
+
+# excel
+in2csv file.xls                         # csvkit - excel to csv (.xls inferred)
+in2csv file.xlsx                        # csvkit - excel to csv (.xlsx inferred)
+in2csv --format xls                     # csvkit - excel to csv (.xls forced)
+in2csv --format xlsx                    # csvkit - excel to csv (.xlsx forced)
+unoconv -f csv f.xlsx                   # libreoffice (** NOTE: deprecated in favor of unoconvert/unoserver)
+unoconvert --convert-to csv file.csv
+unoserver 
+libreoffice --headless --convert-to pdf file.odf  # libreoffice/unoserver - excel to pdf
+vd -b input.xlsx -o output.tsv input.xlsx    # visidata - excel to tsv (NOTE: adds "sheet" column) 
+vd                                      # visidata - excel to json
+vd                                      # visidata - excel to sqlite
+dsq file.xlsx                           # datastation/dsq - excel to json
+<excel> | dsq                           # datastation/dsq - excel to json
+dsq file.xlsx '<sql-query>'             # datastation/dsq - excel to json, exec sql query
+
+# sqlite
+- todo
 ```
 
 
@@ -267,7 +311,8 @@ TODO
 # join (shell)
 
 
-# csvjoin
+# csvkit
+csvjoin
 
 
 # miller
@@ -287,6 +332,8 @@ https://www.sqlite.org/csv.html
 
 # aggregate
 
+**command-line**
+
 ```bash
 # bc
 <number-list> | paste -sd+ - | bc       # sum (number-list, one number per line)
@@ -294,12 +341,12 @@ https://www.sqlite.org/csv.html
 # datamash
 datamash -W --sort -g 1 sum 2           # sort, group by col 1, sum col 2 (whitespace-delimited input)
 datamash -W --sort groupby 1 sum 2      # ""
-datamash "" --header-out                # "" with headers
+datamash "" --header-out                # "" include headers in output
 
 
 # miller
 # - https://miller.readthedocs.io/en/latest/reference-verbs/#stats1
-# stats1: adds aggregate result field as name suffixed with agg type (eg. x_sum)
+# stats1: adds aggregate result field as field name suffixed with agg type (eg. x_sum)
 mlr ... stats1 -f x,y -g month -a sum      #
                                -a min      #
                                -a max      #
@@ -307,8 +354,11 @@ mlr ... stats1 -f x,y -g month -a sum      #
                                -a median   # 
                                -a p10      # 10th quantile
                                -a p95      # 95th quantile
-                               -a pNN      # NN = any number
+                               -a pNN      # NNth quantile (00-99)
 
+
+# csvkit
+csvstat file.csv
 
 # excel
 - pivot table
@@ -316,7 +366,11 @@ mlr ... stats1 -f x,y -g month -a sum      #
 
 # sql
 
+```
 
+**javascript**
+
+```javascript
 # javascript - vanilla
 Math.min(...array);  // min
 Math.max(...array);  // max
@@ -341,7 +395,7 @@ array.reduce(function(res, value) {
 }, {});
 
 
-# javascript - d3
+// javascript - d3
 // min/max/sum
 d3.min(<iterable>[, accessor])
 d3.max(<iterable>[, accessor])
@@ -354,8 +408,6 @@ d3.variance(...)
 // grouping, aggregation
 d3.rollup(array, <reducer-fn>, <group-accessor-fn>)
 d3.rollup(array, v => d3.sum(v, d => d.earnings), d => d.sport)
-
-
 ```
 
 
@@ -441,11 +493,14 @@ const quantile = (arr, q) => {
 };
 ```
 
-**excel**
+**desktop apps**
 
 ```bash
 # excel
 - Data Analysis -> Moving Average
+
+# tableau
+- todo
 ```
 
 # chart
