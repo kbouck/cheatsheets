@@ -42,6 +42,8 @@ Options:
 
 # options
 
+check out https://argbash.dev
+
 ## read
 
 ```bash
@@ -49,6 +51,10 @@ $ echo 'one two three' | read -r a b c
 $ echo "$a $b $c"
 ```
 
+
+## with getopt
+
+(util-linux, handles long args)
 
 
 ## with getopts

@@ -26,6 +26,7 @@ sudo do-release-upgrade                  # might take a while. wants reboot. aft
 # snap
 
 ```bash
+
 ```
 
 # yum
@@ -33,5 +34,35 @@ sudo do-release-upgrade                  # might take a while. wants reboot. aft
 - redhat
 
 ```bash
+
 ```
 
+
+
+# dnf
+
+```bash
+
+```
+
+
+# pacman
+
+```bash
+
+```
+ 
+
+
+# yay
+
+```bash
+
+```
+
+
+# Flathub Store
+
+```bash
+
+```

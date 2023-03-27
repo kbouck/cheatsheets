@@ -44,6 +44,7 @@ with socket.socket (socket.AF INET, socket.SOCK STREAM) as sock:
 
 ```python
 import requests
+import json
 
 # session
 session = requests.session()
@@ -98,7 +99,37 @@ httpbin.org/post echos what was sent, so this returns:
 }
 ```
 
+# http json client
 
+```python 
+import requests
+import json
+
+API_TOKEN = '...'
+
+HEADERS = {
+    'accept': 'application/json'
+}
+
+
+url = 'https://...'
+payload = {
+    'a': 'a',
+    'b': 'b'
+}
+
+def get_status:
+    response = requests.post(url, json=payload, headers =HEADERS)
+    data = response.text
+    status = data['status']
+    id = data['id']
+    return id, status
+
+
+id, status = get_status
+
+
+```
 
 
 
