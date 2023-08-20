@@ -57,6 +57,10 @@ not installed by default on some distributions?
 
 ```bash
 lsof -i :<port>                    # identify process using a port
-fuser 80/tcp                       # identify process using a port
+fuser 80/tcp                       # identify process using a port (fuser didn't exist on RHEL)
 ```
+
+# wake on LAN
+
+https://dgross.ca/blog/linux-home-server-auto-sleep/
 

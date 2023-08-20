@@ -4,9 +4,11 @@ process content in this link:
 
 https://abarrak.gitbook.io/linux-sysops-handbook
 
-# version
+# distro / version
 
 ```bash
+$ cat /etc/os-release
+
 $ lsb_release -a
 $ lsb_release -id
 $ lsb_release -d

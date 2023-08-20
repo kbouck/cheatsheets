@@ -1,13 +1,23 @@
 Windows Package Management
 
-# wingetui
+# tools
+
+## wingetui
 
 - GUI for winget, scoop, and chocolatey
 - https://github.com/marticliment/WingetUI
 
+
+
+## winstall
+
+- gui to browse and select packages
+- genreates scripts that call winget install
+
 # winget
 
-- baked into OS
+- *included with windows*
+- 
 
 ```
 winget --help
