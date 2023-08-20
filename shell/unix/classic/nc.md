@@ -2,6 +2,14 @@
 
 
 
+# server
+
+```bash
+nc -l 8888             # listen on 8888
+
+```
+
+
 
 # Chat (local or remote)
 

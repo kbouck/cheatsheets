@@ -3,6 +3,8 @@
 lots of goodies here:
 https://raimonster.com/scripting-field-guide/
 
+https://github.com/dylanaraps/pure-sh-bible
+
 # read lines
 
 ```bash
