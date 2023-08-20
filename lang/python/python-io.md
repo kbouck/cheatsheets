@@ -8,7 +8,17 @@
 
 ```python
 
-# format
+# EOL char (or not)
+print('no newline', end='')            # suppress newline
+
+
+
+# formatting - string interpolation / f-strings
+f'Value: {value}.'                     # 
+f'Value: {value:.2f}'                  # with formatting (float, 2-decimal precision)
+f'Value: {value:{width}.{precision}}'  #
+
+#
 print("Consumed event from topic {topic}: key = {key:12} value = {value:12}".format(topic=msg.topic(), key=msg.key().decode('utf-8'), value=msg.value().decode('utf-8')))
 
 ```
