@@ -70,6 +70,8 @@ git reset --hard origin/target     #
 git revert <SHA> --no-commit
 git restore --staged --worktree ...  # exclude changes you do NOT want to restore
 
+# web ui
+git instaweb
 
 ```
 
@@ -90,8 +92,9 @@ HEAD~4               # 4x ancestor of current branch
 # add to repo .gitignore file:
 **/.DS_Store
 
-# remove any existing .DS_Store from repo
-find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+# - to remove any existing .DS_Store from repo:
+# find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+
 
 # global .gitignore
 # add to ~/.gitignore_global
@@ -102,4 +105,5 @@ find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
 git config --global core.excludesfile ~/.gitignore_global
 
 ```
+
 

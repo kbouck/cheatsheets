@@ -161,6 +161,9 @@ fx data.json '.filter(x => x > 10)'     # fx w/ js reducer
 <toml> | rq -tJ                         # rq - toml to json
 <toml> | rq -tY                         # rq - toml to yaml
 
+# protobuf
+rq protobuf add schema.proto            # add schema to rq protobuf schema db
+rq -p .example.Person < person.pb
 
 # parquet
 cat in.parquet | dsq                    # dsq

@@ -1,3 +1,12 @@
+# purpose
+- many-to-many mapping between two domains
+- shows path(s) through a set of stages
+
+# concepts
+- node: each of the 
+- link: a directed path relating a source node to a target node
+
+
 ```javascript
 var units = "Widgets";
 

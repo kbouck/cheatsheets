@@ -26,6 +26,9 @@ sudo docker ps                     # old form. replaced by "container ls...""
 docker inspect <tag or id>         # 
 
 
+# docker daemon
+sudo dockerd                       # start manually
+sudo dockerd --iptables=false      #   
 ```
 
 
