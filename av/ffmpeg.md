@@ -6,6 +6,8 @@ https://evanhahn.github.io/ffmpeg-buddy/
 
 https://img.ly/blog/ultimate-guide-to-ffmpeg/
 
+https://amiaopensource.github.io/ffmprovisr/
+
 
 
 
