@@ -1,4 +1,9 @@
 
+# todo
+
+lots of good cheatsheet material here:
+https://gto76.github.io/python-cheatsheet/
+
 
 # variables
 

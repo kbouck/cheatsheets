@@ -1,3 +1,7 @@
+
+todo:
+- https://gwern.net/search
+
 # google-fu
 
 
@@ -8,6 +12,7 @@
     "<phrase>"          require exact phrase match                            "one two three"
     n..m                expand numeric range                                  5..25
     site:               limit results to pages having this domain             site:.nl
+    -site:              exclude
     filetype:<ext>      limit results to files having this extension          filetype:pdf
     intitle:            limit results to those having terms in page title
     inurl:
